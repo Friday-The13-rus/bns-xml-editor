@@ -1,7 +1,5 @@
-﻿using BrightIdeasSoftware;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace BnsXmlEditor
@@ -10,7 +8,7 @@ namespace BnsXmlEditor
 	{
 		BnsTranslateFile xmlFile;
 
-		BindingList<TranslatableItem> listViewItems = new BindingList<TranslatableItem>();
+		List<TranslatableItem> listViewItems = new List<TranslatableItem>();
 
 		public MainForm()
 		{
@@ -39,22 +37,9 @@ namespace BnsXmlEditor
 			{
 				ClearSelectedItem();
 				searchQuery.Text = string.Empty;
-				
+
 				xmlFile = BnsTranslateFile.Load(open.FileName);
-				listViewItems = new BindingList<TranslatableItem>(xmlFile.Elements);
-
-				aliasColumn.AspectGetter = elem => ((TranslatableItem)elem).Alias;
-				originalColumn.AspectGetter = elem => ((TranslatableItem)elem).Original;
-				translateColumn.AspectGetter = elem => ((TranslatableItem)elem).Translate;
-
-				//TextMatchFilter xmlTagsFilter = new TextMatchFilter(elements);
-				//xmlTagsFilter.RegexOptions = System.Text.RegularExpressions.RegexOptions.Compiled | System.Text.RegularExpressions.RegexOptions.Singleline;
-				//xmlTagsFilter.RegexStrings = new List<string>() { @"(</?[a-z]+)([^/>]+)?(/?>)" };
-
-				//HighlightTextRenderer renderer = new HighlightTextRenderer();
-				//renderer.
-
-				//elements.DefaultRenderer = renderer;
+				listViewItems = xmlFile.Elements;
 
 				UpdateItems();
 
@@ -73,7 +58,7 @@ namespace BnsXmlEditor
 		{
 			ClearSelectedItem();
 			searchQuery.Text = string.Empty;
-			listViewItems = new BindingList<TranslatableItem>(xmlFile.Elements);
+			listViewItems = xmlFile.Elements;
 			UpdateItems();
 		}
 
@@ -95,27 +80,27 @@ namespace BnsXmlEditor
 
 			ClearSelectedItem();
 
-			listViewItems = new BindingList<TranslatableItem>(xmlFile.Find(query, (TranslatableItem.Fields)searchField.SelectedItem, searchIsRegex.Checked, !searchNotIgnoreCase.Checked));
+			listViewItems = xmlFile.Find(query, (TranslatableItem.Fields)searchField.SelectedItem, searchIsRegex.Checked, !searchNotIgnoreCase.Checked);
 			UpdateItems();
 		}
 
 		private void UpdateItems()
 		{
-			elements.SetObjects(listViewItems, true);
+			elements.VirtualListSize = listViewItems.Count;
 			itemsCount.Text = listViewItems.Count.ToString("N0");
 		}
 
 		private void SaveTranslate()
 		{
-			if (elements.SelectedIndex != -1)
+			if (elements.SelectedIndices.Count > 0)
 			{
-				listViewItems[elements.SelectedIndex].Translate = translatedText.Text;
+				listViewItems[elements.SelectedIndices[0]].Translate = translatedText.Text;
 			}
 		}
 
 		private void ClearSelectedItem()
 		{
-			elements.SelectedIndex = -1;
+			elements.SelectedIndices.Clear();
 		}
 
 		private void mainMenuSave_Click(object sender, EventArgs e)
@@ -145,27 +130,30 @@ namespace BnsXmlEditor
 
 		private void CopyToClipboard(TranslatableItem.Fields field)
 		{
-			string text;
-			int index = elements.SelectedIndex;
-			switch (field)
+			if (elements.SelectedIndices.Count > 0)
 			{
-				case TranslatableItem.Fields.Alias:
-					text = listViewItems[index].Alias;
-					break;
+				string text;
+				int index = elements.SelectedIndices[0];
+				switch (field)
+				{
+					case TranslatableItem.Fields.Alias:
+						text = listViewItems[index].Alias;
+						break;
 
-				case TranslatableItem.Fields.Original:
-					text = listViewItems[index].Original;
-					break;
+					case TranslatableItem.Fields.Original:
+						text = listViewItems[index].Original;
+						break;
 
-				case TranslatableItem.Fields.Translate:
-					text = listViewItems[index].Translate;
-					break;
+					case TranslatableItem.Fields.Translate:
+						text = listViewItems[index].Translate;
+						break;
 
-				default:
-					throw new ArgumentException("Поле не поддерживается.", "field");
+					default:
+						throw new ArgumentException("Поле не поддерживается.", "field");
+				}
+
+				Clipboard.SetText(text, TextDataFormat.UnicodeText);
 			}
-
-			Clipboard.SetText(text, TextDataFormat.UnicodeText);
 		}
 
 		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -179,7 +167,7 @@ namespace BnsXmlEditor
 		{
 			if (translatedText.Text.IndexOf('\n') != -1)
 				translatedText.Text = translatedText.Text.Replace('\n', '\0');
-			
+
 			if (mainMenuViewHighlight.Checked)
 				translatedText.HighlightXmlTags();
 			else
@@ -238,7 +226,7 @@ namespace BnsXmlEditor
 		private void replaceCancel_Click(object sender, EventArgs e)
 		{
 			ClearSelectedItem();
-			listViewItems = new BindingList<TranslatableItem>(xmlFile.Elements);
+			listViewItems = xmlFile.Elements;
 			UpdateItems();
 		}
 
@@ -262,18 +250,27 @@ namespace BnsXmlEditor
 
 			ClearSelectedItem();
 
-			listViewItems = new BindingList<TranslatableItem>(xmlFile.Replace(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked));
+			listViewItems = xmlFile.Replace(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked);
 
 			string message = string.Format("Обработано {0} элементов.", listViewItems.Count);
 			MessageBox.Show(message, "Операция завершена");
 			UpdateItems();
 		}
 
-		private void elements_SelectionChanged(object sender, EventArgs e)
+		private void elements_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 		{
-			int index = elements.SelectedIndex;
-			if (index != -1)
+			TranslatableItem item = listViewItems[e.ItemIndex];
+			ListViewItem lvi = new ListViewItem(item.Alias);
+			lvi.SubItems.Add(item.Original);
+			lvi.SubItems.Add(item.Translate);
+			e.Item = lvi;
+		}
+
+		private void elements_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (elements.SelectedIndices.Count > 0)
 			{
+				int index = elements.SelectedIndices[0];
 				originalText.Text = listViewItems[index].Original;
 				translatedText.Text = listViewItems[index].Translate;
 			}
