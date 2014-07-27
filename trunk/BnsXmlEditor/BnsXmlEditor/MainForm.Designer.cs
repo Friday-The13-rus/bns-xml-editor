@@ -35,7 +35,6 @@
 			this.cancelSearch = new System.Windows.Forms.Button();
 			this.searchIsRegex = new System.Windows.Forms.CheckBox();
 			this.searchFieldHint = new System.Windows.Forms.Label();
-			this.searchQuery = new BnsXmlEditor.HistoryComboBox();
 			this.searchField = new System.Windows.Forms.ComboBox();
 			this.searchNotIgnoreCase = new System.Windows.Forms.CheckBox();
 			this.replaceCancel = new System.Windows.Forms.Button();
@@ -44,8 +43,6 @@
 			this.replaceIsRegex = new System.Windows.Forms.CheckBox();
 			this.replaceNotIgnoreCase = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.replaceString = new BnsXmlEditor.HistoryComboBox();
-			this.replaceSearchQuery = new BnsXmlEditor.HistoryComboBox();
 			this.elementsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.elementsContextMenuAliasCopy = new System.Windows.Forms.ToolStripMenuItem();
 			this.tagsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -66,13 +63,16 @@
 			this.itemsCount = new System.Windows.Forms.ToolStripStatusLabel();
 			this.save = new System.Windows.Forms.SaveFileDialog();
 			this.textControlsContainer = new System.Windows.Forms.SplitContainer();
-			this.elements = new BrightIdeasSoftware.FastObjectListView();
-			this.aliasColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-			this.originalColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-			this.translateColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+			this.elements = new System.Windows.Forms.ListView();
+			this.aliasColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.originalColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.translateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.searchReplaceTabs = new System.Windows.Forms.TabControl();
 			this.textGroup = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.searchQuery = new BnsXmlEditor.HistoryComboBox();
+			this.replaceString = new BnsXmlEditor.HistoryComboBox();
+			this.replaceSearchQuery = new BnsXmlEditor.HistoryComboBox();
 			this.translatedText = new BnsXmlEditor.ExtendedRichTextBox();
 			this.originalText = new BnsXmlEditor.ExtendedRichTextBox();
 			searchTab = new System.Windows.Forms.TabPage();
@@ -87,7 +87,6 @@
 			this.textControlsContainer.Panel1.SuspendLayout();
 			this.textControlsContainer.Panel2.SuspendLayout();
 			this.textControlsContainer.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.elements)).BeginInit();
 			this.searchReplaceTabs.SuspendLayout();
 			this.textGroup.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -105,7 +104,7 @@
 			searchTab.Location = new System.Drawing.Point(4, 22);
 			searchTab.Name = "searchTab";
 			searchTab.Padding = new System.Windows.Forms.Padding(3);
-			searchTab.Size = new System.Drawing.Size(427, 114);
+			searchTab.Size = new System.Drawing.Size(426, 114);
 			searchTab.TabIndex = 0;
 			searchTab.Text = "Поиск";
 			searchTab.UseVisualStyleBackColor = true;
@@ -151,19 +150,6 @@
 			this.searchFieldHint.Text = "Поле для поиска";
 			this.searchFieldHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// searchQuery
-			// 
-			this.searchQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.searchQuery.HistoryFile = "searchHistory.bin";
-			this.searchQuery.HistoryMaxItems = 20;
-			this.searchQuery.ImeMode = System.Windows.Forms.ImeMode.On;
-			this.searchQuery.Location = new System.Drawing.Point(6, 6);
-			this.searchQuery.Name = "searchQuery";
-			this.searchQuery.Size = new System.Drawing.Size(415, 21);
-			this.searchQuery.TabIndex = 10;
-			this.searchQuery.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchQuery_KeyDown);
-			// 
 			// searchField
 			// 
 			this.searchField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -195,7 +181,7 @@
 			replaceTab.Location = new System.Drawing.Point(4, 22);
 			replaceTab.Name = "replaceTab";
 			replaceTab.Padding = new System.Windows.Forms.Padding(3);
-			replaceTab.Size = new System.Drawing.Size(427, 114);
+			replaceTab.Size = new System.Drawing.Size(426, 114);
 			replaceTab.TabIndex = 1;
 			replaceTab.Text = "Замена";
 			replaceTab.UseVisualStyleBackColor = true;
@@ -261,30 +247,6 @@
 			this.label1.TabIndex = 2;
 			this.label1.Text = "Заменить на:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// replaceString
-			// 
-			this.replaceString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceString.FormattingEnabled = true;
-			this.replaceString.HistoryFile = "replaceHistory2.bin";
-			this.replaceString.HistoryMaxItems = 20;
-			this.replaceString.Location = new System.Drawing.Point(89, 34);
-			this.replaceString.Name = "replaceString";
-			this.replaceString.Size = new System.Drawing.Size(332, 21);
-			this.replaceString.TabIndex = 1;
-			// 
-			// replaceSearchQuery
-			// 
-			this.replaceSearchQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceSearchQuery.FormattingEnabled = true;
-			this.replaceSearchQuery.HistoryFile = "replaceHistory1.bin";
-			this.replaceSearchQuery.HistoryMaxItems = 20;
-			this.replaceSearchQuery.Location = new System.Drawing.Point(6, 6);
-			this.replaceSearchQuery.Name = "replaceSearchQuery";
-			this.replaceSearchQuery.Size = new System.Drawing.Size(415, 21);
-			this.replaceSearchQuery.TabIndex = 0;
 			// 
 			// elementsContextMenu
 			// 
@@ -468,9 +430,6 @@
 			// 
 			// elements
 			// 
-			this.elements.AllColumns.Add(this.aliasColumn);
-			this.elements.AllColumns.Add(this.originalColumn);
-			this.elements.AllColumns.Add(this.translateColumn);
 			this.elements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.aliasColumn,
             this.originalColumn,
@@ -483,29 +442,26 @@
 			this.elements.Location = new System.Drawing.Point(0, 0);
 			this.elements.MultiSelect = false;
 			this.elements.Name = "elements";
-			this.elements.ShowGroups = false;
 			this.elements.Size = new System.Drawing.Size(326, 423);
 			this.elements.TabIndex = 0;
 			this.elements.UseCompatibleStateImageBehavior = false;
 			this.elements.View = System.Windows.Forms.View.Details;
 			this.elements.VirtualMode = true;
-			this.elements.SelectionChanged += new System.EventHandler(this.elements_SelectionChanged);
+			this.elements.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.elements_RetrieveVirtualItem);
+			this.elements.SelectedIndexChanged += new System.EventHandler(this.elements_SelectedIndexChanged);
 			// 
 			// aliasColumn
 			// 
-			this.aliasColumn.CellPadding = null;
 			this.aliasColumn.Text = "Alias";
 			this.aliasColumn.Width = 300;
 			// 
 			// originalColumn
 			// 
-			this.originalColumn.CellPadding = null;
 			this.originalColumn.Text = "Original";
 			this.originalColumn.Width = 300;
 			// 
 			// translateColumn
 			// 
-			this.translateColumn.CellPadding = null;
 			this.translateColumn.Text = "Translate";
 			this.translateColumn.Width = 300;
 			// 
@@ -518,7 +474,7 @@
 			this.searchReplaceTabs.Location = new System.Drawing.Point(3, 4);
 			this.searchReplaceTabs.Name = "searchReplaceTabs";
 			this.searchReplaceTabs.SelectedIndex = 0;
-			this.searchReplaceTabs.Size = new System.Drawing.Size(435, 140);
+			this.searchReplaceTabs.Size = new System.Drawing.Size(434, 140);
 			this.searchReplaceTabs.TabIndex = 14;
 			// 
 			// textGroup
@@ -529,7 +485,7 @@
 			this.textGroup.Controls.Add(this.tableLayoutPanel1);
 			this.textGroup.Location = new System.Drawing.Point(3, 150);
 			this.textGroup.Name = "textGroup";
-			this.textGroup.Size = new System.Drawing.Size(435, 270);
+			this.textGroup.Size = new System.Drawing.Size(434, 270);
 			this.textGroup.TabIndex = 13;
 			this.textGroup.TabStop = false;
 			this.textGroup.Text = "Текст";
@@ -547,8 +503,45 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(429, 251);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(428, 251);
 			this.tableLayoutPanel1.TabIndex = 0;
+			// 
+			// searchQuery
+			// 
+			this.searchQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.searchQuery.HistoryFile = "searchHistory.bin";
+			this.searchQuery.HistoryMaxItems = 20;
+			this.searchQuery.ImeMode = System.Windows.Forms.ImeMode.On;
+			this.searchQuery.Location = new System.Drawing.Point(6, 6);
+			this.searchQuery.Name = "searchQuery";
+			this.searchQuery.Size = new System.Drawing.Size(415, 21);
+			this.searchQuery.TabIndex = 10;
+			this.searchQuery.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchQuery_KeyDown);
+			// 
+			// replaceString
+			// 
+			this.replaceString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replaceString.FormattingEnabled = true;
+			this.replaceString.HistoryFile = "replaceHistory2.bin";
+			this.replaceString.HistoryMaxItems = 20;
+			this.replaceString.Location = new System.Drawing.Point(89, 34);
+			this.replaceString.Name = "replaceString";
+			this.replaceString.Size = new System.Drawing.Size(332, 21);
+			this.replaceString.TabIndex = 1;
+			// 
+			// replaceSearchQuery
+			// 
+			this.replaceSearchQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replaceSearchQuery.FormattingEnabled = true;
+			this.replaceSearchQuery.HistoryFile = "replaceHistory1.bin";
+			this.replaceSearchQuery.HistoryMaxItems = 20;
+			this.replaceSearchQuery.Location = new System.Drawing.Point(6, 6);
+			this.replaceSearchQuery.Name = "replaceSearchQuery";
+			this.replaceSearchQuery.Size = new System.Drawing.Size(415, 21);
+			this.replaceSearchQuery.TabIndex = 0;
 			// 
 			// translatedText
 			// 
@@ -561,7 +554,7 @@
 			this.translatedText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.translatedText.Location = new System.Drawing.Point(3, 128);
 			this.translatedText.Name = "translatedText";
-			this.translatedText.Size = new System.Drawing.Size(423, 120);
+			this.translatedText.Size = new System.Drawing.Size(422, 120);
 			this.translatedText.TabIndex = 6;
 			this.translatedText.Text = "";
 			this.translatedText.TextChanged += new System.EventHandler(this.translatedText_TextChanged);
@@ -574,7 +567,7 @@
 			this.originalText.Location = new System.Drawing.Point(3, 3);
 			this.originalText.Name = "originalText";
 			this.originalText.ReadOnly = true;
-			this.originalText.Size = new System.Drawing.Size(423, 119);
+			this.originalText.Size = new System.Drawing.Size(422, 119);
 			this.originalText.TabIndex = 7;
 			this.originalText.Text = "";
 			this.originalText.TextChanged += new System.EventHandler(this.originalText_TextChanged);
@@ -608,7 +601,6 @@
 			this.textControlsContainer.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.textControlsContainer)).EndInit();
 			this.textControlsContainer.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.elements)).EndInit();
 			this.searchReplaceTabs.ResumeLayout(false);
 			this.textGroup.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
@@ -659,10 +651,10 @@
 		private HistoryComboBox replaceSearchQuery;
 		private System.Windows.Forms.Button search;
 		private ExtendedRichTextBox originalText;
-		private BrightIdeasSoftware.FastObjectListView elements;
-		private BrightIdeasSoftware.OLVColumn aliasColumn;
-		private BrightIdeasSoftware.OLVColumn originalColumn;
-		private BrightIdeasSoftware.OLVColumn translateColumn;
+		private System.Windows.Forms.ListView elements;
+		private System.Windows.Forms.ColumnHeader aliasColumn;
+		private System.Windows.Forms.ColumnHeader originalColumn;
+		private System.Windows.Forms.ColumnHeader translateColumn;
 	}
 }
 
