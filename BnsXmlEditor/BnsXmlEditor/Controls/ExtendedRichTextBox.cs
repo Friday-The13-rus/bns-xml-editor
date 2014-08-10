@@ -1,13 +1,16 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace BnsXmlEditor
+namespace BnsXmlEditor.Controls
 {
 	class ExtendedRichTextBox : RichTextBox
 	{
+		[DefaultValue(true)]
+		public bool HighlightXmlTags { get; set; }
+
 		protected override void OnHandleCreated(EventArgs e)
 		{
 			base.OnHandleCreated(e);
@@ -16,6 +19,11 @@ namespace BnsXmlEditor
 				base.AutoWordSelection = true;
 				base.AutoWordSelection = false;
 			}
+		}
+
+		public ExtendedRichTextBox()
+		{
+			LanguageOption = RichTextBoxLanguageOptions.UIFonts;
 		}
 
 		public void HighlightWord(string word, bool ignoreCase)
@@ -37,12 +45,12 @@ namespace BnsXmlEditor
 			}
 
 			Select(selectedIndex, 0);
-			//SelectionBackColor = BackColor;
+			SelectionBackColor = BackColor;
 
 			ResumeLayout();
 		}
 
-		public void HighlightXmlTags()
+		void HighlightXmlTagsHandler()
 		{
 			SuspendLayout();
 
@@ -68,6 +76,21 @@ namespace BnsXmlEditor
 			SelectionColor = ForeColor;
 
 			ResumeLayout();
+		}
+
+		protected override void OnTextChanged(EventArgs e)
+		{
+			if (HighlightXmlTags)
+				HighlightXmlTagsHandler();
+			else
+			{
+				int index = SelectionStart;
+				SelectAll();
+				SelectionColor = ForeColor;
+				SelectionStart = index;
+			}
+
+			base.OnTextChanged(e);
 		}
 
 		private void Colorize(Group group, int offset, Color color)

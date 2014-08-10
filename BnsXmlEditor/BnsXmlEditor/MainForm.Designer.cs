@@ -1,4 +1,5 @@
-﻿namespace BnsXmlEditor
+﻿using BnsXmlEditor.Controls;
+namespace BnsXmlEditor
 {
 	partial class MainForm
 	{
@@ -31,18 +32,6 @@
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.TabPage searchTab;
 			System.Windows.Forms.TabPage replaceTab;
-			this.search = new System.Windows.Forms.Button();
-			this.cancelSearch = new System.Windows.Forms.Button();
-			this.searchIsRegex = new System.Windows.Forms.CheckBox();
-			this.searchFieldHint = new System.Windows.Forms.Label();
-			this.searchField = new System.Windows.Forms.ComboBox();
-			this.searchNotIgnoreCase = new System.Windows.Forms.CheckBox();
-			this.replaceCancel = new System.Windows.Forms.Button();
-			this.replace = new System.Windows.Forms.Button();
-			this.replaceAll = new System.Windows.Forms.Button();
-			this.replaceIsRegex = new System.Windows.Forms.CheckBox();
-			this.replaceNotIgnoreCase = new System.Windows.Forms.CheckBox();
-			this.label1 = new System.Windows.Forms.Label();
 			this.elementsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.elementsContextMenuAliasCopy = new System.Windows.Forms.ToolStripMenuItem();
 			this.tagsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -68,17 +57,29 @@
 			this.originalColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.translateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.searchReplaceTabs = new System.Windows.Forms.TabControl();
+			this.searchFieldGroup = new System.Windows.Forms.GroupBox();
+			this.searchTranslateField = new System.Windows.Forms.RadioButton();
+			this.searchOriginalField = new System.Windows.Forms.RadioButton();
+			this.searchAliasField = new System.Windows.Forms.RadioButton();
+			this.search = new System.Windows.Forms.Button();
+			this.cancelSearch = new System.Windows.Forms.Button();
+			this.searchIsRegex = new System.Windows.Forms.CheckBox();
+			this.searchNotIgnoreCase = new System.Windows.Forms.CheckBox();
+			this.replaceCancel = new System.Windows.Forms.Button();
+			this.replace = new System.Windows.Forms.Button();
+			this.replaceAll = new System.Windows.Forms.Button();
+			this.replaceIsRegex = new System.Windows.Forms.CheckBox();
+			this.replaceNotIgnoreCase = new System.Windows.Forms.CheckBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.textGroup = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.searchQuery = new BnsXmlEditor.HistoryComboBox();
-			this.replaceString = new BnsXmlEditor.HistoryComboBox();
-			this.replaceSearchQuery = new BnsXmlEditor.HistoryComboBox();
-			this.translatedText = new BnsXmlEditor.ExtendedRichTextBox();
-			this.originalText = new BnsXmlEditor.ExtendedRichTextBox();
+			this.searchQuery = new BnsXmlEditor.Controls.HistoryComboBox();
+			this.replaceString = new BnsXmlEditor.Controls.HistoryComboBox();
+			this.replaceSearchQuery = new BnsXmlEditor.Controls.HistoryComboBox();
+			this.originalText = new BnsXmlEditor.Controls.ExtendedRichTextBox();
+			this.translatedText = new BnsXmlEditor.Controls.ExtendedTextBox();
 			searchTab = new System.Windows.Forms.TabPage();
 			replaceTab = new System.Windows.Forms.TabPage();
-			searchTab.SuspendLayout();
-			replaceTab.SuspendLayout();
 			this.elementsContextMenu.SuspendLayout();
 			this.tagsContextMenu.SuspendLayout();
 			this.mainMenu.SuspendLayout();
@@ -88,165 +89,12 @@
 			this.textControlsContainer.Panel2.SuspendLayout();
 			this.textControlsContainer.SuspendLayout();
 			this.searchReplaceTabs.SuspendLayout();
+			searchTab.SuspendLayout();
+			this.searchFieldGroup.SuspendLayout();
+			replaceTab.SuspendLayout();
 			this.textGroup.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// searchTab
-			// 
-			searchTab.Controls.Add(this.search);
-			searchTab.Controls.Add(this.cancelSearch);
-			searchTab.Controls.Add(this.searchIsRegex);
-			searchTab.Controls.Add(this.searchFieldHint);
-			searchTab.Controls.Add(this.searchQuery);
-			searchTab.Controls.Add(this.searchField);
-			searchTab.Controls.Add(this.searchNotIgnoreCase);
-			searchTab.Location = new System.Drawing.Point(4, 22);
-			searchTab.Name = "searchTab";
-			searchTab.Padding = new System.Windows.Forms.Padding(3);
-			searchTab.Size = new System.Drawing.Size(426, 114);
-			searchTab.TabIndex = 0;
-			searchTab.Text = "Поиск";
-			searchTab.UseVisualStyleBackColor = true;
-			// 
-			// search
-			// 
-			this.search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.search.Location = new System.Drawing.Point(265, 85);
-			this.search.Name = "search";
-			this.search.Size = new System.Drawing.Size(75, 23);
-			this.search.TabIndex = 12;
-			this.search.Text = "Найти";
-			this.search.UseVisualStyleBackColor = true;
-			this.search.Click += new System.EventHandler(this.search_Click);
-			// 
-			// cancelSearch
-			// 
-			this.cancelSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cancelSearch.Location = new System.Drawing.Point(346, 85);
-			this.cancelSearch.Name = "cancelSearch";
-			this.cancelSearch.Size = new System.Drawing.Size(75, 23);
-			this.cancelSearch.TabIndex = 4;
-			this.cancelSearch.Text = "Сброс";
-			this.cancelSearch.UseVisualStyleBackColor = true;
-			this.cancelSearch.Click += new System.EventHandler(this.cancelSearch_Click);
-			// 
-			// searchIsRegex
-			// 
-			this.searchIsRegex.AutoSize = true;
-			this.searchIsRegex.Location = new System.Drawing.Point(135, 33);
-			this.searchIsRegex.Name = "searchIsRegex";
-			this.searchIsRegex.Size = new System.Drawing.Size(146, 17);
-			this.searchIsRegex.TabIndex = 11;
-			this.searchIsRegex.Text = "Регулярное выражение";
-			this.searchIsRegex.UseVisualStyleBackColor = true;
-			// 
-			// searchFieldHint
-			// 
-			this.searchFieldHint.Location = new System.Drawing.Point(6, 53);
-			this.searchFieldHint.Name = "searchFieldHint";
-			this.searchFieldHint.Size = new System.Drawing.Size(97, 23);
-			this.searchFieldHint.TabIndex = 9;
-			this.searchFieldHint.Text = "Поле для поиска";
-			this.searchFieldHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// searchField
-			// 
-			this.searchField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.searchField.Location = new System.Drawing.Point(109, 55);
-			this.searchField.Name = "searchField";
-			this.searchField.Size = new System.Drawing.Size(121, 21);
-			this.searchField.TabIndex = 2;
-			// 
-			// searchNotIgnoreCase
-			// 
-			this.searchNotIgnoreCase.AutoSize = true;
-			this.searchNotIgnoreCase.Location = new System.Drawing.Point(9, 33);
-			this.searchNotIgnoreCase.Name = "searchNotIgnoreCase";
-			this.searchNotIgnoreCase.Size = new System.Drawing.Size(120, 17);
-			this.searchNotIgnoreCase.TabIndex = 1;
-			this.searchNotIgnoreCase.Text = "С учетом регистра";
-			this.searchNotIgnoreCase.UseVisualStyleBackColor = true;
-			// 
-			// replaceTab
-			// 
-			replaceTab.Controls.Add(this.replaceCancel);
-			replaceTab.Controls.Add(this.replace);
-			replaceTab.Controls.Add(this.replaceAll);
-			replaceTab.Controls.Add(this.replaceIsRegex);
-			replaceTab.Controls.Add(this.replaceNotIgnoreCase);
-			replaceTab.Controls.Add(this.label1);
-			replaceTab.Controls.Add(this.replaceString);
-			replaceTab.Controls.Add(this.replaceSearchQuery);
-			replaceTab.Location = new System.Drawing.Point(4, 22);
-			replaceTab.Name = "replaceTab";
-			replaceTab.Padding = new System.Windows.Forms.Padding(3);
-			replaceTab.Size = new System.Drawing.Size(426, 114);
-			replaceTab.TabIndex = 1;
-			replaceTab.Text = "Замена";
-			replaceTab.UseVisualStyleBackColor = true;
-			// 
-			// replaceCancel
-			// 
-			this.replaceCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceCancel.Location = new System.Drawing.Point(346, 85);
-			this.replaceCancel.Name = "replaceCancel";
-			this.replaceCancel.Size = new System.Drawing.Size(75, 23);
-			this.replaceCancel.TabIndex = 16;
-			this.replaceCancel.Text = "Сброс";
-			this.replaceCancel.UseVisualStyleBackColor = true;
-			this.replaceCancel.Click += new System.EventHandler(this.replaceCancel_Click);
-			// 
-			// replace
-			// 
-			this.replace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replace.Location = new System.Drawing.Point(170, 85);
-			this.replace.Name = "replace";
-			this.replace.Size = new System.Drawing.Size(75, 23);
-			this.replace.TabIndex = 15;
-			this.replace.Text = "Заменить";
-			this.replace.UseVisualStyleBackColor = true;
-			this.replace.Visible = false;
-			// 
-			// replaceAll
-			// 
-			this.replaceAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceAll.Location = new System.Drawing.Point(251, 85);
-			this.replaceAll.Name = "replaceAll";
-			this.replaceAll.Size = new System.Drawing.Size(88, 23);
-			this.replaceAll.TabIndex = 14;
-			this.replaceAll.Text = "Заменить все";
-			this.replaceAll.UseVisualStyleBackColor = true;
-			this.replaceAll.Click += new System.EventHandler(this.replaceAll_Click);
-			// 
-			// replaceIsRegex
-			// 
-			this.replaceIsRegex.AutoSize = true;
-			this.replaceIsRegex.Location = new System.Drawing.Point(136, 61);
-			this.replaceIsRegex.Name = "replaceIsRegex";
-			this.replaceIsRegex.Size = new System.Drawing.Size(146, 17);
-			this.replaceIsRegex.TabIndex = 13;
-			this.replaceIsRegex.Text = "Регулярное выражение";
-			this.replaceIsRegex.UseVisualStyleBackColor = true;
-			// 
-			// replaceNotIgnoreCase
-			// 
-			this.replaceNotIgnoreCase.AutoSize = true;
-			this.replaceNotIgnoreCase.Location = new System.Drawing.Point(10, 61);
-			this.replaceNotIgnoreCase.Name = "replaceNotIgnoreCase";
-			this.replaceNotIgnoreCase.Size = new System.Drawing.Size(120, 17);
-			this.replaceNotIgnoreCase.TabIndex = 12;
-			this.replaceNotIgnoreCase.Text = "С учетом регистра";
-			this.replaceNotIgnoreCase.UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(7, 34);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(76, 21);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "Заменить на:";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// elementsContextMenu
 			// 
@@ -357,6 +205,7 @@
 			this.mainMenuViewHighlight.Name = "mainMenuViewHighlight";
 			this.mainMenuViewHighlight.Size = new System.Drawing.Size(249, 22);
 			this.mainMenuViewHighlight.Text = "Подсвечивать Xml теги";
+			this.mainMenuViewHighlight.CheckedChanged += new System.EventHandler(this.mainMenuViewHighlight_CheckedChanged);
 			// 
 			// mainMenuViewHighlightWords
 			// 
@@ -422,9 +271,9 @@
 			// 
 			this.textControlsContainer.Panel2.Controls.Add(this.searchReplaceTabs);
 			this.textControlsContainer.Panel2.Controls.Add(this.textGroup);
-			this.textControlsContainer.Panel2MinSize = 320;
+			this.textControlsContainer.Panel2MinSize = 410;
 			this.textControlsContainer.Size = new System.Drawing.Size(779, 423);
-			this.textControlsContainer.SplitterDistance = 326;
+			this.textControlsContainer.SplitterDistance = 316;
 			this.textControlsContainer.SplitterWidth = 5;
 			this.textControlsContainer.TabIndex = 14;
 			// 
@@ -442,7 +291,7 @@
 			this.elements.Location = new System.Drawing.Point(0, 0);
 			this.elements.MultiSelect = false;
 			this.elements.Name = "elements";
-			this.elements.Size = new System.Drawing.Size(326, 423);
+			this.elements.Size = new System.Drawing.Size(316, 423);
 			this.elements.TabIndex = 0;
 			this.elements.UseCompatibleStateImageBehavior = false;
 			this.elements.View = System.Windows.Forms.View.Details;
@@ -474,8 +323,195 @@
 			this.searchReplaceTabs.Location = new System.Drawing.Point(3, 4);
 			this.searchReplaceTabs.Name = "searchReplaceTabs";
 			this.searchReplaceTabs.SelectedIndex = 0;
-			this.searchReplaceTabs.Size = new System.Drawing.Size(434, 140);
+			this.searchReplaceTabs.Size = new System.Drawing.Size(451, 141);
 			this.searchReplaceTabs.TabIndex = 14;
+			// 
+			// searchTab
+			// 
+			searchTab.Controls.Add(this.searchFieldGroup);
+			searchTab.Controls.Add(this.search);
+			searchTab.Controls.Add(this.cancelSearch);
+			searchTab.Controls.Add(this.searchIsRegex);
+			searchTab.Controls.Add(this.searchQuery);
+			searchTab.Controls.Add(this.searchNotIgnoreCase);
+			searchTab.Location = new System.Drawing.Point(4, 22);
+			searchTab.Name = "searchTab";
+			searchTab.Padding = new System.Windows.Forms.Padding(3);
+			searchTab.Size = new System.Drawing.Size(443, 115);
+			searchTab.TabIndex = 0;
+			searchTab.Text = "Поиск";
+			searchTab.UseVisualStyleBackColor = true;
+			// 
+			// searchFieldGroup
+			// 
+			this.searchFieldGroup.Controls.Add(this.searchTranslateField);
+			this.searchFieldGroup.Controls.Add(this.searchOriginalField);
+			this.searchFieldGroup.Controls.Add(this.searchAliasField);
+			this.searchFieldGroup.Location = new System.Drawing.Point(9, 57);
+			this.searchFieldGroup.Name = "searchFieldGroup";
+			this.searchFieldGroup.Size = new System.Drawing.Size(198, 47);
+			this.searchFieldGroup.TabIndex = 13;
+			this.searchFieldGroup.TabStop = false;
+			this.searchFieldGroup.Text = "Поле для поиска";
+			// 
+			// searchTranslateField
+			// 
+			this.searchTranslateField.AutoSize = true;
+			this.searchTranslateField.Location = new System.Drawing.Point(126, 20);
+			this.searchTranslateField.Name = "searchTranslateField";
+			this.searchTranslateField.Size = new System.Drawing.Size(69, 17);
+			this.searchTranslateField.TabIndex = 2;
+			this.searchTranslateField.TabStop = true;
+			this.searchTranslateField.Text = "Translate";
+			this.searchTranslateField.UseVisualStyleBackColor = true;
+			this.searchTranslateField.Click += new System.EventHandler(this.searchField_Click);
+			// 
+			// searchOriginalField
+			// 
+			this.searchOriginalField.AutoSize = true;
+			this.searchOriginalField.Location = new System.Drawing.Point(60, 20);
+			this.searchOriginalField.Name = "searchOriginalField";
+			this.searchOriginalField.Size = new System.Drawing.Size(60, 17);
+			this.searchOriginalField.TabIndex = 1;
+			this.searchOriginalField.TabStop = true;
+			this.searchOriginalField.Text = "Original";
+			this.searchOriginalField.UseVisualStyleBackColor = true;
+			this.searchOriginalField.Click += new System.EventHandler(this.searchField_Click);
+			// 
+			// searchAliasField
+			// 
+			this.searchAliasField.AutoSize = true;
+			this.searchAliasField.Checked = true;
+			this.searchAliasField.Location = new System.Drawing.Point(7, 20);
+			this.searchAliasField.Name = "searchAliasField";
+			this.searchAliasField.Size = new System.Drawing.Size(47, 17);
+			this.searchAliasField.TabIndex = 0;
+			this.searchAliasField.TabStop = true;
+			this.searchAliasField.Text = "Alias";
+			this.searchAliasField.UseVisualStyleBackColor = true;
+			this.searchAliasField.Click += new System.EventHandler(this.searchField_Click);
+			// 
+			// search
+			// 
+			this.search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.search.Location = new System.Drawing.Point(281, 86);
+			this.search.Name = "search";
+			this.search.Size = new System.Drawing.Size(75, 23);
+			this.search.TabIndex = 12;
+			this.search.Text = "Найти";
+			this.search.UseVisualStyleBackColor = true;
+			this.search.Click += new System.EventHandler(this.search_Click);
+			// 
+			// cancelSearch
+			// 
+			this.cancelSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.cancelSearch.Location = new System.Drawing.Point(362, 86);
+			this.cancelSearch.Name = "cancelSearch";
+			this.cancelSearch.Size = new System.Drawing.Size(75, 23);
+			this.cancelSearch.TabIndex = 4;
+			this.cancelSearch.Text = "Сброс";
+			this.cancelSearch.UseVisualStyleBackColor = true;
+			this.cancelSearch.Click += new System.EventHandler(this.cancelSearch_Click);
+			// 
+			// searchIsRegex
+			// 
+			this.searchIsRegex.AutoSize = true;
+			this.searchIsRegex.Location = new System.Drawing.Point(135, 33);
+			this.searchIsRegex.Name = "searchIsRegex";
+			this.searchIsRegex.Size = new System.Drawing.Size(146, 17);
+			this.searchIsRegex.TabIndex = 11;
+			this.searchIsRegex.Text = "Регулярное выражение";
+			this.searchIsRegex.UseVisualStyleBackColor = true;
+			// 
+			// searchNotIgnoreCase
+			// 
+			this.searchNotIgnoreCase.AutoSize = true;
+			this.searchNotIgnoreCase.Location = new System.Drawing.Point(9, 33);
+			this.searchNotIgnoreCase.Name = "searchNotIgnoreCase";
+			this.searchNotIgnoreCase.Size = new System.Drawing.Size(120, 17);
+			this.searchNotIgnoreCase.TabIndex = 1;
+			this.searchNotIgnoreCase.Text = "С учетом регистра";
+			this.searchNotIgnoreCase.UseVisualStyleBackColor = true;
+			// 
+			// replaceTab
+			// 
+			replaceTab.Controls.Add(this.replaceCancel);
+			replaceTab.Controls.Add(this.replace);
+			replaceTab.Controls.Add(this.replaceAll);
+			replaceTab.Controls.Add(this.replaceIsRegex);
+			replaceTab.Controls.Add(this.replaceNotIgnoreCase);
+			replaceTab.Controls.Add(this.label1);
+			replaceTab.Controls.Add(this.replaceString);
+			replaceTab.Controls.Add(this.replaceSearchQuery);
+			replaceTab.Location = new System.Drawing.Point(4, 22);
+			replaceTab.Name = "replaceTab";
+			replaceTab.Padding = new System.Windows.Forms.Padding(3);
+			replaceTab.Size = new System.Drawing.Size(443, 115);
+			replaceTab.TabIndex = 1;
+			replaceTab.Text = "Замена";
+			replaceTab.UseVisualStyleBackColor = true;
+			// 
+			// replaceCancel
+			// 
+			this.replaceCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.replaceCancel.Location = new System.Drawing.Point(363, 86);
+			this.replaceCancel.Name = "replaceCancel";
+			this.replaceCancel.Size = new System.Drawing.Size(75, 23);
+			this.replaceCancel.TabIndex = 16;
+			this.replaceCancel.Text = "Сброс";
+			this.replaceCancel.UseVisualStyleBackColor = true;
+			this.replaceCancel.Click += new System.EventHandler(this.replaceCancel_Click);
+			// 
+			// replace
+			// 
+			this.replace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.replace.Location = new System.Drawing.Point(187, 86);
+			this.replace.Name = "replace";
+			this.replace.Size = new System.Drawing.Size(75, 23);
+			this.replace.TabIndex = 15;
+			this.replace.Text = "Заменить";
+			this.replace.UseVisualStyleBackColor = true;
+			this.replace.Visible = false;
+			// 
+			// replaceAll
+			// 
+			this.replaceAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.replaceAll.Location = new System.Drawing.Point(268, 86);
+			this.replaceAll.Name = "replaceAll";
+			this.replaceAll.Size = new System.Drawing.Size(88, 23);
+			this.replaceAll.TabIndex = 14;
+			this.replaceAll.Text = "Заменить все";
+			this.replaceAll.UseVisualStyleBackColor = true;
+			this.replaceAll.Click += new System.EventHandler(this.replaceAll_Click);
+			// 
+			// replaceIsRegex
+			// 
+			this.replaceIsRegex.AutoSize = true;
+			this.replaceIsRegex.Location = new System.Drawing.Point(136, 61);
+			this.replaceIsRegex.Name = "replaceIsRegex";
+			this.replaceIsRegex.Size = new System.Drawing.Size(146, 17);
+			this.replaceIsRegex.TabIndex = 13;
+			this.replaceIsRegex.Text = "Регулярное выражение";
+			this.replaceIsRegex.UseVisualStyleBackColor = true;
+			// 
+			// replaceNotIgnoreCase
+			// 
+			this.replaceNotIgnoreCase.AutoSize = true;
+			this.replaceNotIgnoreCase.Location = new System.Drawing.Point(10, 61);
+			this.replaceNotIgnoreCase.Name = "replaceNotIgnoreCase";
+			this.replaceNotIgnoreCase.Size = new System.Drawing.Size(120, 17);
+			this.replaceNotIgnoreCase.TabIndex = 12;
+			this.replaceNotIgnoreCase.Text = "С учетом регистра";
+			this.replaceNotIgnoreCase.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(7, 34);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(76, 21);
+			this.label1.TabIndex = 2;
+			this.label1.Text = "Заменить на:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// textGroup
 			// 
@@ -483,9 +519,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textGroup.Controls.Add(this.tableLayoutPanel1);
-			this.textGroup.Location = new System.Drawing.Point(3, 150);
+			this.textGroup.Location = new System.Drawing.Point(3, 151);
 			this.textGroup.Name = "textGroup";
-			this.textGroup.Size = new System.Drawing.Size(434, 270);
+			this.textGroup.Size = new System.Drawing.Size(451, 269);
 			this.textGroup.TabIndex = 13;
 			this.textGroup.TabStop = false;
 			this.textGroup.Text = "Текст";
@@ -494,8 +530,8 @@
 			// 
 			this.tableLayoutPanel1.ColumnCount = 1;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Controls.Add(this.translatedText, 0, 1);
 			this.tableLayoutPanel1.Controls.Add(this.originalText, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.translatedText, 0, 1);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -503,7 +539,7 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(428, 251);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(445, 250);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// searchQuery
@@ -515,7 +551,7 @@
 			this.searchQuery.ImeMode = System.Windows.Forms.ImeMode.On;
 			this.searchQuery.Location = new System.Drawing.Point(6, 6);
 			this.searchQuery.Name = "searchQuery";
-			this.searchQuery.Size = new System.Drawing.Size(415, 21);
+			this.searchQuery.Size = new System.Drawing.Size(431, 21);
 			this.searchQuery.TabIndex = 10;
 			this.searchQuery.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchQuery_KeyDown);
 			// 
@@ -528,7 +564,7 @@
 			this.replaceString.HistoryMaxItems = 20;
 			this.replaceString.Location = new System.Drawing.Point(89, 34);
 			this.replaceString.Name = "replaceString";
-			this.replaceString.Size = new System.Drawing.Size(332, 21);
+			this.replaceString.Size = new System.Drawing.Size(349, 21);
 			this.replaceString.TabIndex = 1;
 			// 
 			// replaceSearchQuery
@@ -540,37 +576,34 @@
 			this.replaceSearchQuery.HistoryMaxItems = 20;
 			this.replaceSearchQuery.Location = new System.Drawing.Point(6, 6);
 			this.replaceSearchQuery.Name = "replaceSearchQuery";
-			this.replaceSearchQuery.Size = new System.Drawing.Size(415, 21);
+			this.replaceSearchQuery.Size = new System.Drawing.Size(432, 21);
 			this.replaceSearchQuery.TabIndex = 0;
+			// 
+			// originalText
+			// 
+			this.originalText.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.originalText.HighlightXmlTags = true;
+			this.originalText.Location = new System.Drawing.Point(3, 3);
+			this.originalText.Name = "originalText";
+			this.originalText.ReadOnly = true;
+			this.originalText.Size = new System.Drawing.Size(439, 119);
+			this.originalText.TabIndex = 7;
+			this.originalText.Text = "";
+			this.originalText.TextChanged += new System.EventHandler(this.originalText_TextChanged);
 			// 
 			// translatedText
 			// 
 			this.translatedText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.translatedText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.translatedText.ContextMenuStrip = this.tagsContextMenu;
-			this.translatedText.DetectUrls = false;
-			this.translatedText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.translatedText.Location = new System.Drawing.Point(3, 128);
+			this.translatedText.Multiline = true;
 			this.translatedText.Name = "translatedText";
-			this.translatedText.Size = new System.Drawing.Size(422, 120);
-			this.translatedText.TabIndex = 6;
-			this.translatedText.Text = "";
+			this.translatedText.Size = new System.Drawing.Size(439, 119);
+			this.translatedText.TabIndex = 8;
 			this.translatedText.TextChanged += new System.EventHandler(this.translatedText_TextChanged);
-			this.translatedText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.translatedText_KeyDown);
 			this.translatedText.Leave += new System.EventHandler(this.translatedText_Leave);
-			// 
-			// originalText
-			// 
-			this.originalText.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.originalText.Location = new System.Drawing.Point(3, 3);
-			this.originalText.Name = "originalText";
-			this.originalText.ReadOnly = true;
-			this.originalText.Size = new System.Drawing.Size(422, 119);
-			this.originalText.TabIndex = 7;
-			this.originalText.Text = "";
-			this.originalText.TextChanged += new System.EventHandler(this.originalText_TextChanged);
 			// 
 			// MainForm
 			// 
@@ -586,11 +619,6 @@
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Bns Xml Editor";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-			searchTab.ResumeLayout(false);
-			searchTab.PerformLayout();
-			replaceTab.ResumeLayout(false);
-			replaceTab.PerformLayout();
 			this.elementsContextMenu.ResumeLayout(false);
 			this.tagsContextMenu.ResumeLayout(false);
 			this.mainMenu.ResumeLayout(false);
@@ -602,8 +630,15 @@
 			((System.ComponentModel.ISupportInitialize)(this.textControlsContainer)).EndInit();
 			this.textControlsContainer.ResumeLayout(false);
 			this.searchReplaceTabs.ResumeLayout(false);
+			searchTab.ResumeLayout(false);
+			searchTab.PerformLayout();
+			this.searchFieldGroup.ResumeLayout(false);
+			this.searchFieldGroup.PerformLayout();
+			replaceTab.ResumeLayout(false);
+			replaceTab.PerformLayout();
 			this.textGroup.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
+			this.tableLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -625,15 +660,12 @@
 		private System.Windows.Forms.GroupBox textGroup;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.CheckBox searchNotIgnoreCase;
-		private System.Windows.Forms.Label searchFieldHint;
-		private System.Windows.Forms.ComboBox searchField;
 		private System.Windows.Forms.Button cancelSearch;
 		private System.Windows.Forms.SaveFileDialog save;
 		private System.Windows.Forms.SplitContainer textControlsContainer;
 		private System.Windows.Forms.ContextMenuStrip elementsContextMenu;
 		private System.Windows.Forms.ToolStripMenuItem elementsContextMenuAliasCopy;
 		private HistoryComboBox searchQuery;
-		private ExtendedRichTextBox translatedText;
 		private System.Windows.Forms.ToolStripMenuItem mainMenuView;
 		private System.Windows.Forms.ToolStripMenuItem mainMenuViewHighlight;
 		private System.Windows.Forms.ContextMenuStrip tagsContextMenu;
@@ -655,6 +687,11 @@
 		private System.Windows.Forms.ColumnHeader aliasColumn;
 		private System.Windows.Forms.ColumnHeader originalColumn;
 		private System.Windows.Forms.ColumnHeader translateColumn;
+		private ExtendedTextBox translatedText;
+		private System.Windows.Forms.RadioButton searchTranslateField;
+		private System.Windows.Forms.RadioButton searchOriginalField;
+		private System.Windows.Forms.RadioButton searchAliasField;
+		private System.Windows.Forms.GroupBox searchFieldGroup;
 	}
 }
 

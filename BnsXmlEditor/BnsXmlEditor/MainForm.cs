@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BnsXmlEditor
@@ -14,18 +15,6 @@ namespace BnsXmlEditor
 		{
 			InitializeComponent();
 
-			originalText.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
-			translatedText.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
-
-			searchField.Items.Add(TranslatableItem.Fields.Alias);
-			searchField.Items.Add(TranslatableItem.Fields.Original);
-			searchField.Items.Add(TranslatableItem.Fields.Translate);
-			searchField.SelectedIndex = 0;
-
-			searchQuery.LoadHistory();
-			replaceSearchQuery.LoadHistory();
-			replaceString.LoadHistory();
-
 			mainMenuSave.Enabled = false;
 			mainMenuSaveAs.Enabled = false;
 			textControlsContainer.Enabled = false;
@@ -39,9 +28,8 @@ namespace BnsXmlEditor
 				searchQuery.Text = string.Empty;
 
 				xmlFile = BnsTranslateFile.Load(open.FileName);
-				listViewItems = xmlFile.Elements;
 
-				UpdateItems();
+				UpdateItems(xmlFile.Elements);
 
 				mainMenuSave.Enabled = true;
 				mainMenuSaveAs.Enabled = true;
@@ -58,8 +46,7 @@ namespace BnsXmlEditor
 		{
 			ClearSelectedItem();
 			searchQuery.Text = string.Empty;
-			listViewItems = xmlFile.Elements;
-			UpdateItems();
+			UpdateItems(xmlFile.Elements);
 		}
 
 		private void search_Click(object sender, EventArgs e)
@@ -80,14 +67,30 @@ namespace BnsXmlEditor
 
 			ClearSelectedItem();
 
-			listViewItems = xmlFile.Find(query, (TranslatableItem.Fields)searchField.SelectedItem, searchIsRegex.Checked, !searchNotIgnoreCase.Checked);
-			UpdateItems();
+			TranslatableItem.Fields field = GetSearchingField();
+
+			List<TranslatableItem> finded = xmlFile.Find(query, field, searchIsRegex.Checked, !searchNotIgnoreCase.Checked);
+			UpdateItems(finded);
 		}
 
-		private void UpdateItems()
+		TranslatableItem.Fields GetSearchingField()
 		{
-			elements.VirtualListSize = listViewItems.Count;
-			itemsCount.Text = listViewItems.Count.ToString("N0");
+			if (searchAliasField.Checked)
+				return TranslatableItem.Fields.Alias;
+			if (searchOriginalField.Checked)
+				return TranslatableItem.Fields.Original;
+			if (searchTranslateField.Checked)
+				return TranslatableItem.Fields.Translate;
+
+			throw new ApplicationException("Не выбрано ни одно значение радио кнопки для поиска");
+		}
+
+		private void UpdateItems(List<TranslatableItem> newElements)
+		{
+			elements.VirtualListSize = newElements.Count;
+			itemsCount.Text = newElements.Count.ToString("N0");
+			listViewItems = newElements;
+			elements.Refresh();
 		}
 
 		private void SaveTranslate()
@@ -149,49 +152,23 @@ namespace BnsXmlEditor
 						break;
 
 					default:
-						throw new ArgumentException("Поле не поддерживается.", "field");
+						throw new ArgumentException("Поле не поддерживается.", field.ToString());
 				}
 
 				Clipboard.SetText(text, TextDataFormat.UnicodeText);
 			}
 		}
 
-		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			searchQuery.SaveHistory();
-			replaceSearchQuery.SaveHistory();
-			replaceString.SaveHistory();
-		}
-
 		private void translatedText_TextChanged(object sender, EventArgs e)
 		{
-			if (translatedText.Text.IndexOf('\n') != -1)
-				translatedText.Text = translatedText.Text.Replace('\n', '\0');
-
-			if (mainMenuViewHighlight.Checked)
-				translatedText.HighlightXmlTags();
-			else
-			{
-				translatedText.SelectAll();
-				translatedText.SelectionColor = translatedText.ForeColor;
-			}
-
-			if (mainMenuViewHighlightWords.Checked && searchQuery.Text != string.Empty &&
-					(TranslatableItem.Fields)searchField.SelectedItem == TranslatableItem.Fields.Translate)
-				translatedText.HighlightWord(searchQuery.Text, !searchNotIgnoreCase.Checked);
+			//if (mainMenuViewHighlightWords.Checked && searchQuery.Text != string.Empty &&
+			//		(TranslatableItem.Fields)searchField.SelectedItem == TranslatableItem.Fields.Translate)
+			//	translatedText.HighlightWord(searchQuery.Text, !searchNotIgnoreCase.Checked);
 		}
 
 		private void tagsContextMenuBr_Click(object sender, EventArgs e)
 		{
-			PastTag(translatedText, "<br/>");
-		}
-
-		private void PastTag(RichTextBox target, string tag)
-		{
-			int index = target.SelectionStart;
-			string text = target.Text.Insert(index, tag);
-			target.Text = text;
-			target.SelectionStart = index + tag.Length;
+			translatedText.PastTag("<br/>");
 		}
 
 		private void searchQuery_KeyDown(object sender, KeyEventArgs e)
@@ -200,34 +177,16 @@ namespace BnsXmlEditor
 				Find();
 		}
 
-		private void translatedText_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V && !Clipboard.ContainsText())
-				e.Handled = true;
-			else if (e.KeyCode == Keys.Enter)
-				e.Handled = true;
-		}
-
 		private void originalText_TextChanged(object sender, EventArgs e)
 		{
-			if (mainMenuViewHighlight.Checked)
-				originalText.HighlightXmlTags();
-			else
-			{
-				originalText.SelectAll();
-				originalText.SelectionColor = originalText.ForeColor;
-			}
-
-			if (mainMenuViewHighlightWords.Checked && searchQuery.Text != string.Empty &&
-					(TranslatableItem.Fields)searchField.SelectedItem == TranslatableItem.Fields.Original)
+			if (mainMenuViewHighlightWords.Checked && searchQuery.Text != string.Empty && searchOriginalField.Checked)
 				originalText.HighlightWord(searchQuery.Text, !searchNotIgnoreCase.Checked);
 		}
 
 		private void replaceCancel_Click(object sender, EventArgs e)
 		{
 			ClearSelectedItem();
-			listViewItems = xmlFile.Elements;
-			UpdateItems();
+			UpdateItems(xmlFile.Elements);
 		}
 
 		private void replaceAll_Click(object sender, EventArgs e)
@@ -250,11 +209,11 @@ namespace BnsXmlEditor
 
 			ClearSelectedItem();
 
-			listViewItems = xmlFile.Replace(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked);
+			List<TranslatableItem> result = xmlFile.Replace(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked);
 
-			string message = string.Format("Обработано {0} элементов.", listViewItems.Count);
+			string message = string.Format("Обработано {0} элементов.", result.Count);
 			MessageBox.Show(message, "Операция завершена");
-			UpdateItems();
+			UpdateItems(result);
 		}
 
 		private void elements_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
@@ -277,8 +236,33 @@ namespace BnsXmlEditor
 			else
 			{
 				translatedText.Clear();
+				translatedText.ClearUndoRedoList();
+
 				originalText.Clear();
 			}
+		}
+
+		private void searchField_Click(object sender, EventArgs e)
+		{
+			SelectSearchFieldControl(sender);
+		}
+
+		private void SelectSearchFieldControl(object selectedControl)
+		{
+			RadioButton currentButton = selectedControl as RadioButton;
+			if (currentButton != null)
+			{
+				foreach (RadioButton contol in searchFieldGroup.Controls.OfType<RadioButton>())
+				{
+					if (contol.Name != currentButton.Name)
+						contol.Checked = false;
+				}
+			}
+		}
+
+		private void mainMenuViewHighlight_CheckedChanged(object sender, EventArgs e)
+		{
+			originalText.HighlightXmlTags = mainMenuViewHighlight.Checked;
 		}
 	}
 }

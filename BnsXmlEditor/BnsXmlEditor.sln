@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BnsXmlEditor", "BnsXmlEditor\BnsXmlEditor.csproj", "{2E465E8B-680C-40BB-9AC0-344390ECA633}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BnsXmlEditorWpf", "BnsXmlEditorWpf\BnsXmlEditorWpf.csproj", "{66244859-E244-4F93-B2DD-FA2BF91E173F}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -19,6 +21,10 @@ Global
 		{2E465E8B-680C-40BB-9AC0-344390ECA633}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E465E8B-680C-40BB-9AC0-344390ECA633}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E465E8B-680C-40BB-9AC0-344390ECA633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66244859-E244-4F93-B2DD-FA2BF91E173F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66244859-E244-4F93-B2DD-FA2BF91E173F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66244859-E244-4F93-B2DD-FA2BF91E173F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66244859-E244-4F93-B2DD-FA2BF91E173F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
