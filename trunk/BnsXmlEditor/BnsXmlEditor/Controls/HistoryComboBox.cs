@@ -2,13 +2,28 @@
 using System.Linq;
 using System.Windows.Forms;
 using System;
+using System.ComponentModel;
 
-namespace BnsXmlEditor
+namespace BnsXmlEditor.Controls
 {
 	class HistoryComboBox : ComboBox
 	{
-		public string HistoryFile { get; set; }
+		string historyFile;
 
+		public string HistoryFile
+		{
+			get { return historyFile; }
+			set
+			{
+				if (historyFile != value)
+				{
+					historyFile = value;
+					LoadHistory();
+				}
+			}
+		}
+
+		[DefaultValue(20)]
 		public int HistoryMaxItems { get; set; }
 		
 		public void SaveHistory()
@@ -16,7 +31,7 @@ namespace BnsXmlEditor
 			File.WriteAllLines(HistoryFile, Items.Cast<string>());
 		}
 
-		public void LoadHistory()
+		void LoadHistory()
 		{
 			if (string.IsNullOrWhiteSpace(HistoryFile))
 				throw new ArgumentException("Имя файла с историей не заполнено.", "HistoryFile");
@@ -36,6 +51,14 @@ namespace BnsXmlEditor
 
 			if (Items.Count > HistoryMaxItems)
 				Items.RemoveAt(Items.Count - 1);
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+				SaveHistory();
+			
+			base.Dispose(disposing);
 		}
 	}
 }
