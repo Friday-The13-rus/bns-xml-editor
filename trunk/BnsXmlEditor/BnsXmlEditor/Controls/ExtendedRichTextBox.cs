@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace BnsXmlEditor.Controls
 {
 	class ExtendedRichTextBox : RichTextBox
-	{
+	{		
 		[DefaultValue(true)]
 		public bool HighlightXmlTags { get; set; }
 
@@ -24,6 +24,7 @@ namespace BnsXmlEditor.Controls
 		public ExtendedRichTextBox()
 		{
 			LanguageOption = RichTextBoxLanguageOptions.UIFonts;
+			HighlightXmlTags = true;
 		}
 
 		public void HighlightWord(string word, bool ignoreCase)
