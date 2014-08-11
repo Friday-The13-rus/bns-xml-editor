@@ -57,13 +57,7 @@ namespace BnsXmlEditor
 		private void Find()
 		{
 			string query = searchQuery.Text;
-			if (query == string.Empty)
-				return;
-
 			searchQuery.Add(query);
-
-			if (searchQuery.Text == string.Empty)
-				searchQuery.Text = query;
 
 			ClearSelectedItem();
 
@@ -192,20 +186,10 @@ namespace BnsXmlEditor
 		private void replaceAll_Click(object sender, EventArgs e)
 		{
 			string query = replaceSearchQuery.Text;
-			if (query == string.Empty)
-				return;
-
 			replaceSearchQuery.Add(query);
 
-			if (replaceSearchQuery.Text == string.Empty)
-				replaceSearchQuery.Text = query;
-
 			string replaceQuery = replaceString.Text;
-
 			replaceString.Add(replaceQuery);
-
-			if (replaceString.Text == string.Empty)
-				replaceString.Text = replaceQuery;
 
 			ClearSelectedItem();
 
@@ -219,7 +203,8 @@ namespace BnsXmlEditor
 		private void elements_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 		{
 			TranslatableItem item = listViewItems[e.ItemIndex];
-			ListViewItem lvi = new ListViewItem(item.Alias);
+			ListViewItem lvi = new ListViewItem(item.AutoId.ToString());
+			lvi.SubItems.Add(item.Alias);
 			lvi.SubItems.Add(item.Original);
 			lvi.SubItems.Add(item.Translate);
 			e.Item = lvi;
@@ -263,6 +248,43 @@ namespace BnsXmlEditor
 		private void mainMenuViewHighlight_CheckedChanged(object sender, EventArgs e)
 		{
 			originalText.HighlightXmlTags = mainMenuViewHighlight.Checked;
+		}
+
+		private void goToAutoId_Click(object sender, EventArgs e)
+		{
+			MoveToAutoId();
+		}
+
+		private void MoveToAutoId()
+		{
+			int autoId = int.Parse(autoIdValue.Text);
+			int index = listViewItems.FindIndex(el => el.AutoId == autoId);
+			if (index == -1)
+			{
+				string message = string.Format("Элемент с autoId {0} не найден.{1}Проверьте введенное значение или сбросьте фильтрацию", autoIdValue.Text, Environment.NewLine);
+				MessageBox.Show(message, "Элемент не найден", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			autoIdValue.Add(autoIdValue.Text);
+
+			elements.SelectedIndices.Clear();
+			elements.SelectedIndices.Add(index);
+			elements.EnsureVisible(index);
+			elements.Select();
+		}
+
+		private void autoIdValue_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!Char.IsDigit(e.KeyChar) && e.KeyChar != Convert.ToChar(8))
+			{
+				e.Handled = true;
+			}
+		}
+
+		private void autoIdValue_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				MoveToAutoId();
 		}
 	}
 }
