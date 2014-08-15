@@ -16,6 +16,7 @@ namespace BnsXmlEditorWpf
 		public HistoryComboBox()
 			: base()
 		{
+			HistoryMaxItems = 20;
 			Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 		}
 
@@ -77,11 +78,5 @@ namespace BnsXmlEditorWpf
 			if (Text == string.Empty)
 				Text = temp;
 		}
-		
-		//protected override void Dispose(bool disposing)
-		//{
-		//	if (disposing)
-		//		SaveHistory();
-		//}
 	}
 }
