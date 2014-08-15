@@ -384,7 +384,7 @@ namespace BnsXmlEditor
 			this.searchReplaceTabs.Location = new System.Drawing.Point(3, 4);
 			this.searchReplaceTabs.Name = "searchReplaceTabs";
 			this.searchReplaceTabs.SelectedIndex = 0;
-			this.searchReplaceTabs.Size = new System.Drawing.Size(449, 141);
+			this.searchReplaceTabs.Size = new System.Drawing.Size(446, 141);
 			this.searchReplaceTabs.TabIndex = 14;
 			// 
 			// searchTab
@@ -398,7 +398,7 @@ namespace BnsXmlEditor
 			searchTab.Location = new System.Drawing.Point(4, 22);
 			searchTab.Name = "searchTab";
 			searchTab.Padding = new System.Windows.Forms.Padding(3);
-			searchTab.Size = new System.Drawing.Size(441, 115);
+			searchTab.Size = new System.Drawing.Size(438, 115);
 			searchTab.TabIndex = 0;
 			searchTab.Text = "Поиск";
 			searchTab.UseVisualStyleBackColor = true;
@@ -455,7 +455,7 @@ namespace BnsXmlEditor
 			// search
 			// 
 			this.search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.search.Location = new System.Drawing.Point(281, 86);
+			this.search.Location = new System.Drawing.Point(276, 86);
 			this.search.Name = "search";
 			this.search.Size = new System.Drawing.Size(75, 23);
 			this.search.TabIndex = 12;
@@ -466,7 +466,7 @@ namespace BnsXmlEditor
 			// cancelSearch
 			// 
 			this.cancelSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cancelSearch.Location = new System.Drawing.Point(362, 86);
+			this.cancelSearch.Location = new System.Drawing.Point(357, 86);
 			this.cancelSearch.Name = "cancelSearch";
 			this.cancelSearch.Size = new System.Drawing.Size(75, 23);
 			this.cancelSearch.TabIndex = 4;
@@ -489,11 +489,11 @@ namespace BnsXmlEditor
 			this.searchQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.searchQuery.HistoryFile = "searchHistory.bin";
-			this.searchQuery.HistoryMaxItems = 0;
+			this.searchQuery.HistoryMaxItems = 40;
 			this.searchQuery.ImeMode = System.Windows.Forms.ImeMode.On;
 			this.searchQuery.Location = new System.Drawing.Point(6, 6);
 			this.searchQuery.Name = "searchQuery";
-			this.searchQuery.Size = new System.Drawing.Size(431, 21);
+			this.searchQuery.Size = new System.Drawing.Size(426, 21);
 			this.searchQuery.TabIndex = 10;
 			this.searchQuery.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchQuery_KeyDown);
 			// 
@@ -520,7 +520,7 @@ namespace BnsXmlEditor
 			replaceTab.Location = new System.Drawing.Point(4, 22);
 			replaceTab.Name = "replaceTab";
 			replaceTab.Padding = new System.Windows.Forms.Padding(3);
-			replaceTab.Size = new System.Drawing.Size(441, 115);
+			replaceTab.Size = new System.Drawing.Size(438, 115);
 			replaceTab.TabIndex = 1;
 			replaceTab.Text = "Замена";
 			replaceTab.UseVisualStyleBackColor = true;
@@ -528,7 +528,7 @@ namespace BnsXmlEditor
 			// replaceCancel
 			// 
 			this.replaceCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceCancel.Location = new System.Drawing.Point(363, 86);
+			this.replaceCancel.Location = new System.Drawing.Point(357, 86);
 			this.replaceCancel.Name = "replaceCancel";
 			this.replaceCancel.Size = new System.Drawing.Size(75, 23);
 			this.replaceCancel.TabIndex = 16;
@@ -539,7 +539,7 @@ namespace BnsXmlEditor
 			// replace
 			// 
 			this.replace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replace.Location = new System.Drawing.Point(187, 86);
+			this.replace.Location = new System.Drawing.Point(181, 86);
 			this.replace.Name = "replace";
 			this.replace.Size = new System.Drawing.Size(75, 23);
 			this.replace.TabIndex = 15;
@@ -550,7 +550,7 @@ namespace BnsXmlEditor
 			// replaceAll
 			// 
 			this.replaceAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceAll.Location = new System.Drawing.Point(268, 86);
+			this.replaceAll.Location = new System.Drawing.Point(262, 86);
 			this.replaceAll.Name = "replaceAll";
 			this.replaceAll.Size = new System.Drawing.Size(88, 23);
 			this.replaceAll.TabIndex = 14;
@@ -593,10 +593,10 @@ namespace BnsXmlEditor
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.replaceString.FormattingEnabled = true;
 			this.replaceString.HistoryFile = "replaceHistory2.bin";
-			this.replaceString.HistoryMaxItems = 0;
+			this.replaceString.HistoryMaxItems = 40;
 			this.replaceString.Location = new System.Drawing.Point(89, 34);
 			this.replaceString.Name = "replaceString";
-			this.replaceString.Size = new System.Drawing.Size(349, 21);
+			this.replaceString.Size = new System.Drawing.Size(343, 21);
 			this.replaceString.TabIndex = 1;
 			// 
 			// replaceSearchQuery
@@ -605,10 +605,10 @@ namespace BnsXmlEditor
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.replaceSearchQuery.FormattingEnabled = true;
 			this.replaceSearchQuery.HistoryFile = "replaceHistory1.bin";
-			this.replaceSearchQuery.HistoryMaxItems = 0;
+			this.replaceSearchQuery.HistoryMaxItems = 40;
 			this.replaceSearchQuery.Location = new System.Drawing.Point(6, 6);
 			this.replaceSearchQuery.Name = "replaceSearchQuery";
-			this.replaceSearchQuery.Size = new System.Drawing.Size(432, 21);
+			this.replaceSearchQuery.Size = new System.Drawing.Size(426, 21);
 			this.replaceSearchQuery.TabIndex = 0;
 			// 
 			// tabPage1
@@ -618,7 +618,7 @@ namespace BnsXmlEditor
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(441, 115);
+			this.tabPage1.Size = new System.Drawing.Size(438, 115);
 			this.tabPage1.TabIndex = 2;
 			this.tabPage1.Text = "Переход на Id";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -626,7 +626,7 @@ namespace BnsXmlEditor
 			// goToAutoId
 			// 
 			this.goToAutoId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.goToAutoId.Location = new System.Drawing.Point(363, 86);
+			this.goToAutoId.Location = new System.Drawing.Point(357, 86);
 			this.goToAutoId.Name = "goToAutoId";
 			this.goToAutoId.Size = new System.Drawing.Size(75, 23);
 			this.goToAutoId.TabIndex = 1;
@@ -640,9 +640,10 @@ namespace BnsXmlEditor
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.autoIdValue.FormattingEnabled = true;
 			this.autoIdValue.HistoryFile = "autoIdHistory.bin";
+			this.autoIdValue.HistoryMaxItems = 40;
 			this.autoIdValue.Location = new System.Drawing.Point(6, 7);
 			this.autoIdValue.Name = "autoIdValue";
-			this.autoIdValue.Size = new System.Drawing.Size(432, 21);
+			this.autoIdValue.Size = new System.Drawing.Size(426, 21);
 			this.autoIdValue.TabIndex = 0;
 			this.autoIdValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.autoIdValue_KeyDown);
 			this.autoIdValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.autoIdValue_KeyPress);
@@ -655,7 +656,7 @@ namespace BnsXmlEditor
 			this.textGroup.Controls.Add(this.tableLayoutPanel1);
 			this.textGroup.Location = new System.Drawing.Point(3, 151);
 			this.textGroup.Name = "textGroup";
-			this.textGroup.Size = new System.Drawing.Size(449, 269);
+			this.textGroup.Size = new System.Drawing.Size(446, 269);
 			this.textGroup.TabIndex = 13;
 			this.textGroup.TabStop = false;
 			this.textGroup.Text = "Текст";
@@ -673,7 +674,7 @@ namespace BnsXmlEditor
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(443, 250);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(440, 250);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// originalText
@@ -682,7 +683,7 @@ namespace BnsXmlEditor
 			this.originalText.Location = new System.Drawing.Point(3, 3);
 			this.originalText.Name = "originalText";
 			this.originalText.ReadOnly = true;
-			this.originalText.Size = new System.Drawing.Size(437, 119);
+			this.originalText.Size = new System.Drawing.Size(434, 119);
 			this.originalText.TabIndex = 7;
 			this.originalText.Text = "";
 			this.originalText.TextChanged += new System.EventHandler(this.originalText_TextChanged);
@@ -696,7 +697,7 @@ namespace BnsXmlEditor
 			this.translatedText.Location = new System.Drawing.Point(3, 128);
 			this.translatedText.Multiline = true;
 			this.translatedText.Name = "translatedText";
-			this.translatedText.Size = new System.Drawing.Size(437, 119);
+			this.translatedText.Size = new System.Drawing.Size(434, 119);
 			this.translatedText.TabIndex = 8;
 			this.translatedText.TextChanged += new System.EventHandler(this.translatedText_TextChanged);
 			this.translatedText.Leave += new System.EventHandler(this.translatedText_Leave);

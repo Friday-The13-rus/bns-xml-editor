@@ -45,18 +45,18 @@ namespace BnsXmlEditor.Controls
 				Items.AddRange(File.ReadAllLines(HistoryFile));
 		}
 
-		public void Add(string query)
+		public void UpdateHistory()
 		{
 			string temp = Text;
 			if (Text == string.Empty)
 				return;
 
-			int index = Items.IndexOf(Text);
+			int index = Items.IndexOf(temp);
 
 			if (index != -1)
 				Items.RemoveAt(index);
 
-			Items.Insert(0, Text);
+			Items.Insert(0, temp);
 
 			if (Items.Count > HistoryMaxItems)
 				Items.RemoveAt(Items.Count - 1);

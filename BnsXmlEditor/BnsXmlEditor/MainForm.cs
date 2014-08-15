@@ -56,15 +56,20 @@ namespace BnsXmlEditor
 
 		private void Find()
 		{
-			string query = searchQuery.Text;
-			searchQuery.Add(query);
+			searchQuery.UpdateHistory();
 
 			ClearSelectedItem();
 
 			TranslatableItem.Fields field = GetSearchingField();
-
-			List<TranslatableItem> finded = xmlFile.Find(query, field, searchIsRegex.Checked, !searchNotIgnoreCase.Checked);
-			UpdateItems(finded);
+			try
+			{
+				List<TranslatableItem> finded = xmlFile.Find(searchQuery.Text, field, searchIsRegex.Checked, !searchNotIgnoreCase.Checked);
+				UpdateItems(finded);
+			}
+			catch (ArgumentException ex)
+			{
+				MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		TranslatableItem.Fields GetSearchingField()
@@ -185,19 +190,25 @@ namespace BnsXmlEditor
 
 		private void replaceAll_Click(object sender, EventArgs e)
 		{
-			string query = replaceSearchQuery.Text;
-			replaceSearchQuery.Add(query);
-
-			string replaceQuery = replaceString.Text;
-			replaceString.Add(replaceQuery);
+			replaceSearchQuery.UpdateHistory();
+			replaceString.UpdateHistory();
 
 			ClearSelectedItem();
 
-			List<TranslatableItem> result = xmlFile.Replace(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked);
+			string query = replaceSearchQuery.Text;
+			string replaceQuery = replaceString.Text;
+			try
+			{
+				List<TranslatableItem> result = xmlFile.Replace(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked);
 
-			string message = string.Format("Обработано {0} элементов.", result.Count);
-			MessageBox.Show(message, "Операция завершена");
-			UpdateItems(result);
+				string message = string.Format("Обработано {0} элементов.", result.Count);
+				MessageBox.Show(message, "Операция завершена");
+				UpdateItems(result);
+			}
+			catch (ArgumentException ex)
+			{
+				MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private void elements_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
@@ -261,11 +272,12 @@ namespace BnsXmlEditor
 			int index = listViewItems.FindIndex(el => el.AutoId == autoId);
 			if (index == -1)
 			{
-				string message = string.Format("Элемент с autoId {0} не найден.{1}Проверьте введенное значение или сбросьте фильтрацию", autoIdValue.Text, Environment.NewLine);
+				string message = string.Format("Элемент с autoId {0} не найден.{1}Проверьте введенное значение или сбросьте фильтрацию.", autoIdValue.Text, Environment.NewLine);
 				MessageBox.Show(message, "Элемент не найден", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
-			autoIdValue.Add(autoIdValue.Text);
+
+			autoIdValue.UpdateHistory();
 
 			elements.SelectedIndices.Clear();
 			elements.SelectedIndices.Add(index);
