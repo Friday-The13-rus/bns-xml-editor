@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using Core;
 
 namespace BnsXmlEditorWpf
 {
@@ -52,6 +53,31 @@ namespace BnsXmlEditorWpf
 		private void findButton_Click(object sender, RoutedEventArgs e)
 		{
 			cmbSearch.UpdateHistory();
+		}
+
+		private void btnMoveToAutoId_Click(object sender, RoutedEventArgs e)
+		{
+			if (cmbId.Text.All(c => char.IsDigit(c)))
+			{
+				int autoId = int.Parse(cmbId.Text);
+				int index = items.FindIndex(el => el.AutoId == autoId);
+				if (index == -1)
+				{
+					string message = string.Format("Элемент с autoId {0} не найден.{1}Проверьте введенное значение или сбросьте фильтрацию.", cmbId.Text, Environment.NewLine);
+					MessageBox.Show(message, "Элемент не найден", MessageBoxButton.OK, MessageBoxImage.Warning);
+					return;
+				}
+
+				cmbId.UpdateHistory();
+
+				lstTranslatableItems.SelectedIndex = index;
+				lstTranslatableItems.ScrollIntoView(lstTranslatableItems.SelectedItem);
+				lstTranslatableItems.Focus();
+			}
+			else
+			{
+				MessageBox.Show("В поле для autoId могут присутствовать только цифры.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+			}
 		}
 	}
 }

@@ -117,40 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoIdContainsOnlyNumbersMessage" xml:space="preserve">
-    <value>В поле для autoId могут присутствовать только цифры.</value>
+  <data name="AutoIdSearchNotSupported" xml:space="preserve">
+    <value>Search by autoId field not supported.</value>
   </data>
-  <data name="CopingFieldNotSupported" xml:space="preserve">
-    <value>Копирование значения этого поля не поддерживается.</value>
-  </data>
-  <data name="ElementNotFoundedCaption" xml:space="preserve">
-    <value>Элемент не найден</value>
-  </data>
-  <data name="ElementNotFoundedMessage" xml:space="preserve">
-    <value>Элемент с autoId {0} не найден.{1}Проверьте введенное значение или сбросьте фильтрацию.</value>
-  </data>
-  <data name="ErrorCaption" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
-  <data name="InvalidFileFormat" xml:space="preserve">
-    <value>Неверный формат файла.</value>
-  </data>
-  <data name="LanguageChangedMessage" xml:space="preserve">
-    <value>Язык изменен. Для вступления изменений в силу, пожалуйста, перезапустите приложение.</value>
-  </data>
-  <data name="QuestionCaption" xml:space="preserve">
-    <value>Вопрос</value>
-  </data>
-  <data name="ReplaceSuccessMessage" xml:space="preserve">
-    <value>Обработано {0} элементов.</value>
-  </data>
-  <data name="SaveChangesQuestionMessage" xml:space="preserve">
-    <value>Вы хотите сохранить изменения?</value>
-  </data>
-  <data name="SearchFieldNotSelected" xml:space="preserve">
-    <value>Не выбрано ни одно значение радио кнопки для поиска.</value>
-  </data>
-  <data name="SuccessCaption" xml:space="preserve">
-    <value>Операция завершена</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="translate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\translate.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
 </root>

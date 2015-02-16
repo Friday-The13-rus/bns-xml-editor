@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
-namespace BnsXmlEditor
+namespace Core
 {
-	class TranslatableItem
+	public class TranslatableItem
 	{
 		public enum Fields { AutoId, Alias, Original, Translate }
 
@@ -14,7 +15,7 @@ namespace BnsXmlEditor
 
 		public string Original { get; private set; }
 
-		public string Translate { get; set; }
+		public string Translate { get; private set; }
 
 		public TranslateState State { get; private set; }
 
@@ -25,18 +26,23 @@ namespace BnsXmlEditor
 			Original = original;
 			Translate = translate;
 
-			UpdateTranslateState();
+			//UpdateTranslateState();
 		}
 
 		public void UpdateTranslateState()
 		{
-			if (string.Equals(Original, Translate, System.StringComparison.CurrentCulture))
+			if (string.Equals(Original, Translate, StringComparison.CurrentCulture))
 				State = TranslateState.NotTranslated;
-			else if (Translate.Any(elem => elem >= '\u4E00' && elem <= '\u9FFF') ||   // хотябы один китайский
-					!Translate.Any(elem => elem >= '\u0401' && elem <= '\u0451'))     // ни одного русского
+			else if (Translate.Any(CharExtension.IsChineseChar) ||   // хотябы один китайский
+					!Translate.Any(CharExtension.IsRussianChar))     // ни одного русского
 				State = TranslateState.PartiallyTranslated;
 			else
 				State = TranslateState.Translated;
+		}
+
+		internal void UpdateTranslate(string newValue)
+		{
+			Translate = newValue;
 		}
 	}
 }

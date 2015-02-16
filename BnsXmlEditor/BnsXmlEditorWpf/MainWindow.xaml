@@ -3,13 +3,12 @@
         xmlns:local="clr-namespace:BnsXmlEditorWpf.Converters"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uc="clr-namespace:BnsXmlEditorWpf" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="BnsXmlEditorWpf.MainWindow"
-        Title="Bns Xml Editor" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Bns Xml Editor" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="2918760_1307859816.ico">
     <Window.Resources>
         <Style x:Key="GridSplitterVerticalGripStyle" TargetType="{x:Type GridSplitter}">
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Cursor" Value="SizeWE" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Background"
     			Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
             <Setter Property="Template">
@@ -61,79 +60,98 @@
                 <Separator/>
                 <MenuItem Header="Выход"/>
             </MenuItem>
+            <MenuItem Header="Правка">
+                <MenuItem Header="Отменить"/>
+                <MenuItem Header="Вернуть"/>
+            </MenuItem>
             <MenuItem Header="Вид">
                 <MenuItem Header="Подсвечивать Xml теги" IsChecked="True"/>
                 <MenuItem Header="Подсвечивать результат поиска" IsChecked="True"/>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom" Background="{x:Null}">
-            <Label Content="Количество элементов в списке:"/>
-            <Label x:Name="lblElementsCount" Margin="-10,0,0,0"/>
+            <Label Content="Количество элементов в списке:" Padding="0"/>
+            <Label x:Name="lblElementsCount" />
         </StatusBar>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="175" />
+                <RowDefinition Height="195" />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="345" MaxWidth="950" Width="1*" />
+                <ColumnDefinition MinWidth="345" MaxWidth="1010" Width="1*" />
                 <ColumnDefinition Width="Auto" MinWidth="6" />
                 <ColumnDefinition Width="2*" MinWidth="415" />
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lstTranslatableItems" Margin="10" Grid.RowSpan="3" Foreground="Black">
+            <ListView x:Name="lstTranslatableItems" Margin="3" Grid.RowSpan="3" Foreground="Black">
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn HeaderContainerStyle="{StaticResource LeftAlignmentHeader}" Header="AutoId" Width="60" DisplayMemberBinding="{Binding AutoId}" />
                         <GridViewColumn HeaderContainerStyle="{StaticResource LeftAlignmentHeader}" Header="Alias" Width="300" DisplayMemberBinding="{Binding Alias}" />
                         <GridViewColumn HeaderContainerStyle="{StaticResource LeftAlignmentHeader}" Header="Original" Width="300"  DisplayMemberBinding="{Binding Original}" />
                         <GridViewColumn HeaderContainerStyle="{StaticResource LeftAlignmentHeader}" Header="Translate" Width="300" DisplayMemberBinding="{Binding Translate}" />
                     </GridView>
                 </ListView.View>
             </ListView>
-            <TabControl Grid.Column="2" Margin="10" HorizontalContentAlignment="Center">
+            <TabControl Grid.Column="2" Margin="3" HorizontalContentAlignment="Center">
                 <TabItem Header="Поиск">
-                    <StackPanel VerticalAlignment="Bottom">
-                        <uc:HistoryComboBox x:Name="cmbSearch" HistoryFile="searchHistory.bin" Margin="5" IsEditable="True"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <CheckBox Margin="5" Content="Учитывать регистр" />
-                            <CheckBox Margin="5" Content="Регулярное выражение" />
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Button x:Name="btnFind" Margin="5" Content="Поиск" MinWidth="75" VerticalAlignment="Bottom" Click="findButton_Click" />
+                            <Button x:Name="btnCancelFind" Margin="5" Content="Отмена" MinWidth="75" VerticalAlignment="Bottom" />
                         </StackPanel>
-                        <DockPanel>
-                            <GroupBox Margin="5" Header="Поле для поиска" HorizontalAlignment="Left">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <RadioButton Margin="5" Content="Alias" IsChecked="True" />
-                                    <RadioButton Margin="5" Content="Original" />
-                                    <RadioButton Margin="5" Content="Translate" />
-                                </StackPanel>
-                            </GroupBox>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                <Button x:Name="btnFind" Margin="5" Content="Поиск" MinWidth="75" VerticalAlignment="Bottom" Click="findButton_Click" />
-                                <Button x:Name="btnCancelFind" Margin="5" Content="Отмена" MinWidth="75" VerticalAlignment="Bottom" />
+                        <StackPanel>
+                            <uc:HistoryComboBox x:Name="cmbSearch" HistoryFile="searchHistory.bin" Margin="5" IsEditable="True"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <CheckBox Margin="5" Content="Учитывать регистр" />
+                                <CheckBox Margin="5" Content="Регулярное выражение" />
                             </StackPanel>
-                        </DockPanel>
-                    </StackPanel>
+                            <DockPanel>
+                                <GroupBox Margin="5" Header="Поле для поиска" HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <RadioButton Margin="5" Content="Alias" IsChecked="True" />
+                                        <RadioButton Margin="5" Content="Original" />
+                                        <RadioButton Margin="5" Content="Translate" />
+                                    </StackPanel>
+                                </GroupBox>
+                            </DockPanel>
+                        </StackPanel>
+                    </DockPanel>
                 </TabItem>
                 <TabItem Header="Замена">
-                    <StackPanel VerticalAlignment="Bottom">
-                        <uc:HistoryComboBox HistoryFile="replaceHistory1.bin" Margin="5" IsEditable="True"/>
-                        <DockPanel>
-                            <Label Content="Заменить на:" />
-                            <uc:HistoryComboBox HistoryFile="replaceHistory2.bin" Margin="5" IsEditable="True"/>
-                        </DockPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <CheckBox Margin="5" Content="Учитывать регистр" />
-                            <CheckBox Margin="5" Content="Регулярное выражение" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
                             <Button x:Name="btnReplaceAll" Margin="5" Content="Заменить все" MinWidth="75" />
                             <Button x:Name="btnCancelReplace" Margin="5" Content="Отмена" MinWidth="75" />
                         </StackPanel>
-                    </StackPanel>
+                        <StackPanel>
+                            <uc:HistoryComboBox HistoryFile="replaceHistory1.bin" Margin="5" IsEditable="True"/>
+                            <DockPanel>
+                                <Label Content="Заменить на:" />
+                                <uc:HistoryComboBox HistoryFile="replaceHistory2.bin" Margin="5" IsEditable="True"/>
+                            </DockPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <CheckBox Margin="5" Content="Учитывать регистр" />
+                                <CheckBox Margin="5" Content="Регулярное выражение" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Переход на AutoId">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnMoveToAutoId" Content="Перейти" Margin="5" MinWidth="75" Click="btnMoveToAutoId_Click"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <uc:HistoryComboBox x:Name="cmbId" HistoryFile="autoIdHistory.bin" Margin="5" IsEditable="True"/>
+                        </StackPanel>
+                    </DockPanel>
                 </TabItem>
             </TabControl>
-            <TextBox Grid.Column="2" Margin="10" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Translate}" DataContext="{Binding SelectedItem, ElementName=lstTranslatableItems}" />
+            <TextBox Grid.Column="2" Margin="3" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Translate}" DataContext="{Binding SelectedItem, ElementName=lstTranslatableItems}" />
             <GridSplitter Grid.Column="1" Grid.RowSpan="3" Style="{StaticResource VerticalGridSplitter}" />
-            <TextBox IsReadOnly="True" Grid.Column="2" Margin="10" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Original}" DataContext="{Binding SelectedItem, ElementName=lstTranslatableItems}" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" />
+            <TextBox IsReadOnly="True" Grid.Column="2" Margin="3" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Original}" DataContext="{Binding SelectedItem, ElementName=lstTranslatableItems}" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" />
         </Grid>
     </DockPanel>
 </Window>
