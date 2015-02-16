@@ -1,23 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
+using System.Xml.Schema;
+using BnsXmlEditor.Properties;
+using Core;
 
 namespace BnsXmlEditor
 {
 	public partial class MainForm : Form
 	{
-		BnsTranslateFile xmlFile;
+		private readonly TranslateFileBl _xmlFile = new TranslateFileBl();
 
-		List<TranslatableItem> listViewItems = new List<TranslatableItem>();
+		List<TranslatableItem> _listViewItems = new List<TranslatableItem>();
 
 		public MainForm()
 		{
+			SetLanguage();
+
 			InitializeComponent();
 
 			mainMenuSave.Enabled = false;
 			mainMenuSaveAs.Enabled = false;
 			textControlsContainer.Enabled = false;
+
+			mainMenuViewHighlight.Checked = Settings.Default.HighlightXmlTags;
+			mainMenuViewHighlightWords.Checked = Settings.Default.HighlightSearchResults;
+		}
+
+		private static void SetLanguage()
+		{
+			Thread.CurrentThread.CurrentUICulture = 
+				new CultureInfo(Settings.Default.Language == "ru-RU" ? Settings.Default.Language : "en-US");
 		}
 
 		private void mainMenuOpen_Click(object sender, EventArgs e)
@@ -27,9 +43,17 @@ namespace BnsXmlEditor
 				ClearSelectedItem();
 				searchQuery.Text = string.Empty;
 
-				xmlFile = BnsTranslateFile.Load(open.FileName);
+				try
+				{
+					_xmlFile.Load(open.FileName);
+				}
+				catch (XmlSchemaValidationException)
+				{
+					MessageBox.Show(Resources.InvalidFileFormat);
+					return;
+				}
 
-				UpdateItems(xmlFile.Elements);
+				UpdateItems(_xmlFile.GetElements().ToList());
 
 				mainMenuSave.Enabled = true;
 				mainMenuSaveAs.Enabled = true;
@@ -46,7 +70,7 @@ namespace BnsXmlEditor
 		{
 			ClearSelectedItem();
 			searchQuery.Text = string.Empty;
-			UpdateItems(xmlFile.Elements);
+			UpdateItems(_xmlFile.GetElements().ToList());
 		}
 
 		private void search_Click(object sender, EventArgs e)
@@ -63,12 +87,13 @@ namespace BnsXmlEditor
 			TranslatableItem.Fields field = GetSearchingField();
 			try
 			{
-				List<TranslatableItem> finded = xmlFile.Find(searchQuery.Text, field, searchIsRegex.Checked, !searchNotIgnoreCase.Checked);
+				FilterCriteria criteria = new FilterCriteria(searchQuery.Text, field, searchIsRegex.Checked, !searchNotIgnoreCase.Checked);
+				List<TranslatableItem> finded = _xmlFile.GetElements(criteria).ToList();
 				UpdateItems(finded);
 			}
 			catch (ArgumentException ex)
 			{
-				MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message, Resources.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -81,14 +106,14 @@ namespace BnsXmlEditor
 			if (searchTranslateField.Checked)
 				return TranslatableItem.Fields.Translate;
 
-			throw new ApplicationException("Не выбрано ни одно значение радио кнопки для поиска");
+			throw new ApplicationException(Resources.SearchFieldNotSelected);
 		}
 
 		private void UpdateItems(List<TranslatableItem> newElements)
 		{
 			elements.VirtualListSize = newElements.Count;
 			itemsCount.Text = newElements.Count.ToString("N0");
-			listViewItems = newElements;
+			_listViewItems = newElements;
 			elements.Refresh();
 		}
 
@@ -96,7 +121,8 @@ namespace BnsXmlEditor
 		{
 			if (elements.SelectedIndices.Count > 0)
 			{
-				listViewItems[elements.SelectedIndices[0]].Translate = translatedText.Text;
+				_xmlFile.ElementUpdated(_listViewItems[elements.SelectedIndices[0]], translatedText.Text);
+				UpdateUndoRedoButtonsStatus();
 			}
 		}
 
@@ -107,16 +133,20 @@ namespace BnsXmlEditor
 
 		private void mainMenuSave_Click(object sender, EventArgs e)
 		{
-			SaveTranslate();
-			xmlFile.Save();
+			if (translatedText.Focused)
+				SaveTranslate();
+
+			_xmlFile.Save();
 		}
 
 		private void mainMenuSaveAs_Click(object sender, EventArgs e)
 		{
 			if (save.ShowDialog() == DialogResult.OK)
 			{
-				SaveTranslate();
-				xmlFile.Save(save.FileName);
+				if (translatedText.Focused)
+					SaveTranslate();
+
+				_xmlFile.Save(save.FileName);
 			}
 		}
 
@@ -139,19 +169,19 @@ namespace BnsXmlEditor
 				switch (field)
 				{
 					case TranslatableItem.Fields.Alias:
-						text = listViewItems[index].Alias;
+						text = _listViewItems[index].Alias;
 						break;
 
 					case TranslatableItem.Fields.Original:
-						text = listViewItems[index].Original;
+						text = _listViewItems[index].Original;
 						break;
 
 					case TranslatableItem.Fields.Translate:
-						text = listViewItems[index].Translate;
+						text = _listViewItems[index].Translate;
 						break;
 
 					default:
-						throw new ArgumentException("Поле не поддерживается.", field.ToString());
+						throw new ArgumentException(Resources.CopingFieldNotSupported, field.ToString());
 				}
 
 				Clipboard.SetText(text, TextDataFormat.UnicodeText);
@@ -185,7 +215,7 @@ namespace BnsXmlEditor
 		private void replaceCancel_Click(object sender, EventArgs e)
 		{
 			ClearSelectedItem();
-			UpdateItems(xmlFile.Elements);
+			UpdateItems(_xmlFile.GetElements().ToList());
 		}
 
 		private void replaceAll_Click(object sender, EventArgs e)
@@ -199,21 +229,24 @@ namespace BnsXmlEditor
 			string replaceQuery = replaceString.Text;
 			try
 			{
-				List<TranslatableItem> result = xmlFile.Replace(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked);
+				ReplaceCriteria criteria = new ReplaceCriteria(query, replaceQuery, replaceIsRegex.Checked, !replaceNotIgnoreCase.Checked);
+				List<TranslatableItem> result = _xmlFile.ReplaceTranslate(criteria).ToList();
 
-				string message = string.Format("Обработано {0} элементов.", result.Count);
-				MessageBox.Show(message, "Операция завершена");
+				string message = string.Format(Resources.ReplaceSuccessMessage, result.Count);
+				MessageBox.Show(message, Resources.SuccessCaption);
+
+				UpdateUndoRedoButtonsStatus();
 				UpdateItems(result);
 			}
 			catch (ArgumentException ex)
 			{
-				MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message, Resources.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void elements_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 		{
-			TranslatableItem item = listViewItems[e.ItemIndex];
+			TranslatableItem item = _listViewItems[e.ItemIndex];
 			ListViewItem lvi = new ListViewItem(item.AutoId.ToString());
 			lvi.SubItems.Add(item.Alias);
 			lvi.SubItems.Add(item.Original);
@@ -226,8 +259,9 @@ namespace BnsXmlEditor
 			if (elements.SelectedIndices.Count > 0)
 			{
 				int index = elements.SelectedIndices[0];
-				originalText.Text = listViewItems[index].Original;
-				translatedText.Text = listViewItems[index].Translate;
+
+				originalText.Text = _listViewItems[index].Original;
+				translatedText.Text = _listViewItems[index].Translate;
 			}
 			else
 			{
@@ -248,10 +282,10 @@ namespace BnsXmlEditor
 			RadioButton currentButton = selectedControl as RadioButton;
 			if (currentButton != null)
 			{
-				foreach (RadioButton contol in searchFieldGroup.Controls.OfType<RadioButton>())
+				foreach (RadioButton control in searchFieldGroup.Controls.OfType<RadioButton>())
 				{
-					if (contol.Name != currentButton.Name)
-						contol.Checked = false;
+					if (control.Name != currentButton.Name)
+						control.Checked = false;
 				}
 			}
 		}
@@ -259,6 +293,9 @@ namespace BnsXmlEditor
 		private void mainMenuViewHighlight_CheckedChanged(object sender, EventArgs e)
 		{
 			originalText.HighlightXmlTags = mainMenuViewHighlight.Checked;
+
+			Settings.Default.HighlightXmlTags = mainMenuViewHighlight.Checked;
+			Settings.Default.Save();
 		}
 
 		private void goToAutoId_Click(object sender, EventArgs e)
@@ -268,12 +305,19 @@ namespace BnsXmlEditor
 
 		private void MoveToAutoId()
 		{
+			if (!autoIdValue.Text.All(char.IsDigit))
+			{
+				MessageBox.Show(Resources.AutoIdContainsOnlyNumbersMessage, Resources.ErrorCaption, MessageBoxButtons.OK,
+					MessageBoxIcon.Warning);
+				return;
+			}
+
 			int autoId = int.Parse(autoIdValue.Text);
-			int index = listViewItems.FindIndex(el => el.AutoId == autoId);
+			int index = _listViewItems.FindIndex(el => el.AutoId == autoId);
 			if (index == -1)
 			{
-				string message = string.Format("Элемент с autoId {0} не найден.{1}Проверьте введенное значение или сбросьте фильтрацию.", autoIdValue.Text, Environment.NewLine);
-				MessageBox.Show(message, "Элемент не найден", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				string message = string.Format(Resources.ElementNotFoundedMessage, autoIdValue.Text, Environment.NewLine);
+				MessageBox.Show(message, Resources.ElementNotFoundedCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 
@@ -285,18 +329,87 @@ namespace BnsXmlEditor
 			elements.Select();
 		}
 
-		private void autoIdValue_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!Char.IsDigit(e.KeyChar) && e.KeyChar != Convert.ToChar(8))
-			{
-				e.Handled = true;
-			}
-		}
-
 		private void autoIdValue_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 				MoveToAutoId();
+		}
+
+		private void miUndo_Click(object sender, EventArgs e)
+		{
+			if (_xmlFile.UndoRedoManager.Undo())
+			{
+				elements.Refresh();
+				int index = elements.SelectedIndices[0];
+				translatedText.Text = _listViewItems[index].Translate;
+
+				UpdateUndoRedoButtonsStatus();
+			}
+		}
+
+		private void miRedo_Click(object sender, EventArgs e)
+		{
+			if (_xmlFile.UndoRedoManager.Redo())
+			{
+				elements.Refresh();
+				int index = elements.SelectedIndices[0];
+				translatedText.Text = _listViewItems[index].Translate;
+
+				UpdateUndoRedoButtonsStatus();
+			}
+
+		}
+
+		private void UpdateUndoRedoButtonsStatus()
+		{
+			miUndo.Enabled = !_xmlFile.UndoRedoManager.UndoListIsEmpty;
+			miRedo.Enabled = !_xmlFile.UndoRedoManager.RedoListIsEmpty;
+		}
+
+		private void mainMenuViewHighlightWords_CheckedChanged(object sender, EventArgs e)
+		{
+			Settings.Default.HighlightSearchResults = mainMenuViewHighlightWords.Checked;
+			Settings.Default.Save();
+		}
+
+		private void mainMenuLanguageEnglish_Click(object sender, EventArgs e)
+		{
+			ChangeLanguageTo("en-US");
+		}
+
+		private static void ChangeLanguageTo(string languageCode)
+		{
+			Settings.Default.Language = languageCode;
+			Settings.Default.Save();
+
+			MessageBox.Show(Resources.LanguageChangedMessage, Resources.SuccessCaption, MessageBoxButtons.OK,
+				MessageBoxIcon.Information);
+		}
+
+		private void mainMenuLanguageRussian_Click(object sender, EventArgs e)
+		{
+			ChangeLanguageTo("ru-RU");
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (translatedText.Focused)
+				SaveTranslate();
+
+			if (e.CloseReason != CloseReason.UserClosing || !_xmlFile.HasChanges)
+				return;
+
+			DialogResult result = MessageBox.Show(Resources.SaveChangesQuestionMessage, Resources.QuestionCaption, MessageBoxButtons.YesNoCancel,
+				MessageBoxIcon.Information);
+			switch (result)
+			{
+				case DialogResult.Yes:
+					_xmlFile.Save();
+					break;
+				case DialogResult.Cancel:
+					e.Cancel = true;
+					break;
+			}
 		}
 	}
 }

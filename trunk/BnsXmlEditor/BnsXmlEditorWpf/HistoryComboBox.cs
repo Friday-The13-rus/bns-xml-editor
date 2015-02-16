@@ -24,6 +24,14 @@ namespace BnsXmlEditorWpf
 		{
 			SaveHistory();
 		}
+
+		protected override void OnDropDownOpened(EventArgs e)
+		{
+			if (Items.Count == 0)
+				IsDropDownOpen = false;
+
+			base.OnDropDownOpened(e);
+		}
 		
 		public string HistoryFile
 		{
@@ -70,7 +78,7 @@ namespace BnsXmlEditorWpf
 			if (index != -1)
 				Items.RemoveAt(index);
 
-			Items.Insert(0, Text);
+			Items.Insert(0, temp);
 
 			if (Items.Count > HistoryMaxItems)
 				Items.RemoveAt(Items.Count - 1);

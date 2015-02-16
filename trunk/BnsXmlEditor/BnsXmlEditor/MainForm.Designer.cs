@@ -31,38 +31,8 @@ namespace BnsXmlEditor
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.TabPage searchTab;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			System.Windows.Forms.TabPage replaceTab;
-			this.elementsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.elementsContextMenuAliasCopy = new System.Windows.Forms.ToolStripMenuItem();
-			this.tagsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.tagsContextMenuBr = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenu = new System.Windows.Forms.MenuStrip();
-			this.mainMenuFile = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuOpen = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuSave = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuSaveAs = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuFileSeparator = new System.Windows.Forms.ToolStripSeparator();
-			this.mainMenuExit = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuView = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuElementsColumns = new System.Windows.Forms.ToolStripMenuItem();
-			this.miAutoIdColumn = new System.Windows.Forms.ToolStripMenuItem();
-			this.miAliasColumn = new System.Windows.Forms.ToolStripMenuItem();
-			this.miOriginalColumn = new System.Windows.Forms.ToolStripMenuItem();
-			this.miTranslatedColumn = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuViewHighlight = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuViewHighlightWords = new System.Windows.Forms.ToolStripMenuItem();
-			this.open = new System.Windows.Forms.OpenFileDialog();
-			this.statusBar = new System.Windows.Forms.StatusStrip();
-			this.itemsCountHint = new System.Windows.Forms.ToolStripStatusLabel();
-			this.itemsCount = new System.Windows.Forms.ToolStripStatusLabel();
-			this.save = new System.Windows.Forms.SaveFileDialog();
-			this.textControlsContainer = new System.Windows.Forms.SplitContainer();
-			this.elements = new System.Windows.Forms.ListView();
-			this.autoIdColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.aliasColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.originalColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.translateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.searchReplaceTabs = new System.Windows.Forms.TabControl();
 			this.searchFieldGroup = new System.Windows.Forms.GroupBox();
 			this.searchTranslateField = new System.Windows.Forms.RadioButton();
 			this.searchOriginalField = new System.Windows.Forms.RadioButton();
@@ -80,312 +50,68 @@ namespace BnsXmlEditor
 			this.label1 = new System.Windows.Forms.Label();
 			this.replaceString = new BnsXmlEditor.Controls.HistoryComboBox();
 			this.replaceSearchQuery = new BnsXmlEditor.Controls.HistoryComboBox();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.textControlsContainer = new System.Windows.Forms.SplitContainer();
+			this.elements = new System.Windows.Forms.ListView();
+			this.autoIdColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.aliasColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.originalColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.translateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.elementsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.elementsContextMenuAliasCopy = new System.Windows.Forms.ToolStripMenuItem();
+			this.searchReplaceTabs = new System.Windows.Forms.TabControl();
+			this.moveToIdPage = new System.Windows.Forms.TabPage();
 			this.goToAutoId = new System.Windows.Forms.Button();
 			this.autoIdValue = new BnsXmlEditor.Controls.HistoryComboBox();
 			this.textGroup = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.originalText = new BnsXmlEditor.Controls.ExtendedRichTextBox();
 			this.translatedText = new BnsXmlEditor.Controls.ExtendedTextBox();
+			this.tagsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.tagsContextMenuBr = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenu = new System.Windows.Forms.MenuStrip();
+			this.mainMenuFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuOpen = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuSave = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuFileSeparator = new System.Windows.Forms.ToolStripSeparator();
+			this.mainMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+			this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.miUndo = new System.Windows.Forms.ToolStripMenuItem();
+			this.miRedo = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuView = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuElementsColumns = new System.Windows.Forms.ToolStripMenuItem();
+			this.miAutoIdColumn = new System.Windows.Forms.ToolStripMenuItem();
+			this.miAliasColumn = new System.Windows.Forms.ToolStripMenuItem();
+			this.miOriginalColumn = new System.Windows.Forms.ToolStripMenuItem();
+			this.miTranslatedColumn = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewHighlight = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewHighlightWords = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuLanguage = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuLanguageEnglish = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuLanguageRussian = new System.Windows.Forms.ToolStripMenuItem();
+			this.open = new System.Windows.Forms.OpenFileDialog();
+			this.statusBar = new System.Windows.Forms.StatusStrip();
+			this.itemsCountHint = new System.Windows.Forms.ToolStripStatusLabel();
+			this.itemsCount = new System.Windows.Forms.ToolStripStatusLabel();
+			this.save = new System.Windows.Forms.SaveFileDialog();
 			searchTab = new System.Windows.Forms.TabPage();
 			replaceTab = new System.Windows.Forms.TabPage();
-			this.elementsContextMenu.SuspendLayout();
-			this.tagsContextMenu.SuspendLayout();
-			this.mainMenu.SuspendLayout();
-			this.statusBar.SuspendLayout();
+			searchTab.SuspendLayout();
+			this.searchFieldGroup.SuspendLayout();
+			replaceTab.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.textControlsContainer)).BeginInit();
 			this.textControlsContainer.Panel1.SuspendLayout();
 			this.textControlsContainer.Panel2.SuspendLayout();
 			this.textControlsContainer.SuspendLayout();
+			this.elementsContextMenu.SuspendLayout();
 			this.searchReplaceTabs.SuspendLayout();
-			searchTab.SuspendLayout();
-			this.searchFieldGroup.SuspendLayout();
-			replaceTab.SuspendLayout();
-			this.tabPage1.SuspendLayout();
+			this.moveToIdPage.SuspendLayout();
 			this.textGroup.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
+			this.tagsContextMenu.SuspendLayout();
+			this.mainMenu.SuspendLayout();
+			this.statusBar.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// elementsContextMenu
-			// 
-			this.elementsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.elementsContextMenuAliasCopy});
-			this.elementsContextMenu.Name = "elementsContextMenu";
-			this.elementsContextMenu.ShowImageMargin = false;
-			this.elementsContextMenu.Size = new System.Drawing.Size(143, 26);
-			// 
-			// elementsContextMenuAliasCopy
-			// 
-			this.elementsContextMenuAliasCopy.Name = "elementsContextMenuAliasCopy";
-			this.elementsContextMenuAliasCopy.Size = new System.Drawing.Size(142, 22);
-			this.elementsContextMenuAliasCopy.Text = "Копировать Alias";
-			this.elementsContextMenuAliasCopy.Click += new System.EventHandler(this.elementsContextMenuAliasCopy_Click);
-			// 
-			// tagsContextMenu
-			// 
-			this.tagsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tagsContextMenuBr});
-			this.tagsContextMenu.Name = "tagsContextMenu";
-			this.tagsContextMenu.ShowImageMargin = false;
-			this.tagsContextMenu.Size = new System.Drawing.Size(123, 26);
-			// 
-			// tagsContextMenuBr
-			// 
-			this.tagsContextMenuBr.Name = "tagsContextMenuBr";
-			this.tagsContextMenuBr.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-			this.tagsContextMenuBr.Size = new System.Drawing.Size(122, 22);
-			this.tagsContextMenuBr.Text = "<br/>";
-			this.tagsContextMenuBr.Click += new System.EventHandler(this.tagsContextMenuBr_Click);
-			// 
-			// mainMenu
-			// 
-			this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainMenuFile,
-            this.mainMenuView});
-			this.mainMenu.Location = new System.Drawing.Point(0, 0);
-			this.mainMenu.Name = "mainMenu";
-			this.mainMenu.Size = new System.Drawing.Size(803, 24);
-			this.mainMenu.TabIndex = 0;
-			this.mainMenu.Text = "Главное меню";
-			// 
-			// mainMenuFile
-			// 
-			this.mainMenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainMenuOpen,
-            this.mainMenuSave,
-            this.mainMenuSaveAs,
-            this.mainMenuFileSeparator,
-            this.mainMenuExit});
-			this.mainMenuFile.Name = "mainMenuFile";
-			this.mainMenuFile.Size = new System.Drawing.Size(48, 20);
-			this.mainMenuFile.Text = "Файл";
-			// 
-			// mainMenuOpen
-			// 
-			this.mainMenuOpen.Name = "mainMenuOpen";
-			this.mainMenuOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.mainMenuOpen.Size = new System.Drawing.Size(216, 22);
-			this.mainMenuOpen.Text = "Открыть";
-			this.mainMenuOpen.Click += new System.EventHandler(this.mainMenuOpen_Click);
-			// 
-			// mainMenuSave
-			// 
-			this.mainMenuSave.Name = "mainMenuSave";
-			this.mainMenuSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.mainMenuSave.Size = new System.Drawing.Size(216, 22);
-			this.mainMenuSave.Text = "Сохранить";
-			this.mainMenuSave.Click += new System.EventHandler(this.mainMenuSave_Click);
-			// 
-			// mainMenuSaveAs
-			// 
-			this.mainMenuSaveAs.Name = "mainMenuSaveAs";
-			this.mainMenuSaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.S)));
-			this.mainMenuSaveAs.Size = new System.Drawing.Size(216, 22);
-			this.mainMenuSaveAs.Text = "Сохранить как";
-			this.mainMenuSaveAs.Click += new System.EventHandler(this.mainMenuSaveAs_Click);
-			// 
-			// mainMenuFileSeparator
-			// 
-			this.mainMenuFileSeparator.Name = "mainMenuFileSeparator";
-			this.mainMenuFileSeparator.Size = new System.Drawing.Size(213, 6);
-			// 
-			// mainMenuExit
-			// 
-			this.mainMenuExit.Name = "mainMenuExit";
-			this.mainMenuExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-			this.mainMenuExit.Size = new System.Drawing.Size(216, 22);
-			this.mainMenuExit.Text = "Выход";
-			this.mainMenuExit.Click += new System.EventHandler(this.mainMenuExit_Click);
-			// 
-			// mainMenuView
-			// 
-			this.mainMenuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainMenuElementsColumns,
-            this.mainMenuViewHighlight,
-            this.mainMenuViewHighlightWords});
-			this.mainMenuView.Name = "mainMenuView";
-			this.mainMenuView.Size = new System.Drawing.Size(39, 20);
-			this.mainMenuView.Text = "Вид";
-			// 
-			// mainMenuElementsColumns
-			// 
-			this.mainMenuElementsColumns.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miAutoIdColumn,
-            this.miAliasColumn,
-            this.miOriginalColumn,
-            this.miTranslatedColumn});
-			this.mainMenuElementsColumns.Name = "mainMenuElementsColumns";
-			this.mainMenuElementsColumns.Size = new System.Drawing.Size(260, 22);
-			this.mainMenuElementsColumns.Text = "Отображаемые колонки в списке";
-			this.mainMenuElementsColumns.Visible = false;
-			// 
-			// miAutoIdColumn
-			// 
-			this.miAutoIdColumn.Checked = true;
-			this.miAutoIdColumn.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.miAutoIdColumn.Name = "miAutoIdColumn";
-			this.miAutoIdColumn.Size = new System.Drawing.Size(129, 22);
-			this.miAutoIdColumn.Text = "AutoId";
-			// 
-			// miAliasColumn
-			// 
-			this.miAliasColumn.Checked = true;
-			this.miAliasColumn.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.miAliasColumn.Name = "miAliasColumn";
-			this.miAliasColumn.Size = new System.Drawing.Size(129, 22);
-			this.miAliasColumn.Text = "Alias";
-			// 
-			// miOriginalColumn
-			// 
-			this.miOriginalColumn.Checked = true;
-			this.miOriginalColumn.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.miOriginalColumn.Name = "miOriginalColumn";
-			this.miOriginalColumn.Size = new System.Drawing.Size(129, 22);
-			this.miOriginalColumn.Text = "Original";
-			// 
-			// miTranslatedColumn
-			// 
-			this.miTranslatedColumn.Checked = true;
-			this.miTranslatedColumn.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.miTranslatedColumn.Name = "miTranslatedColumn";
-			this.miTranslatedColumn.Size = new System.Drawing.Size(129, 22);
-			this.miTranslatedColumn.Text = "Translated";
-			// 
-			// mainMenuViewHighlight
-			// 
-			this.mainMenuViewHighlight.Checked = true;
-			this.mainMenuViewHighlight.CheckOnClick = true;
-			this.mainMenuViewHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.mainMenuViewHighlight.Name = "mainMenuViewHighlight";
-			this.mainMenuViewHighlight.Size = new System.Drawing.Size(260, 22);
-			this.mainMenuViewHighlight.Text = "Подсвечивать Xml теги";
-			this.mainMenuViewHighlight.CheckedChanged += new System.EventHandler(this.mainMenuViewHighlight_CheckedChanged);
-			// 
-			// mainMenuViewHighlightWords
-			// 
-			this.mainMenuViewHighlightWords.Checked = true;
-			this.mainMenuViewHighlightWords.CheckOnClick = true;
-			this.mainMenuViewHighlightWords.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.mainMenuViewHighlightWords.Name = "mainMenuViewHighlightWords";
-			this.mainMenuViewHighlightWords.Size = new System.Drawing.Size(260, 22);
-			this.mainMenuViewHighlightWords.Text = "Подсвечивать результат поиска";
-			// 
-			// open
-			// 
-			this.open.Filter = "Xml file|*.xml";
-			this.open.SupportMultiDottedExtensions = true;
-			// 
-			// statusBar
-			// 
-			this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemsCountHint,
-            this.itemsCount});
-			this.statusBar.Location = new System.Drawing.Point(0, 454);
-			this.statusBar.Name = "statusBar";
-			this.statusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-			this.statusBar.Size = new System.Drawing.Size(803, 22);
-			this.statusBar.TabIndex = 8;
-			this.statusBar.Text = "StatusBar";
-			// 
-			// itemsCountHint
-			// 
-			this.itemsCountHint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.itemsCountHint.Name = "itemsCountHint";
-			this.itemsCountHint.Size = new System.Drawing.Size(187, 17);
-			this.itemsCountHint.Text = "Количество элементов в списке:";
-			this.itemsCountHint.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-			// 
-			// itemsCount
-			// 
-			this.itemsCount.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.itemsCount.Name = "itemsCount";
-			this.itemsCount.Size = new System.Drawing.Size(13, 17);
-			this.itemsCount.Text = "0";
-			// 
-			// save
-			// 
-			this.save.DefaultExt = "xml";
-			this.save.Filter = "Xml file|*.xml";
-			this.save.SupportMultiDottedExtensions = true;
-			// 
-			// textControlsContainer
-			// 
-			this.textControlsContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.textControlsContainer.Location = new System.Drawing.Point(12, 28);
-			this.textControlsContainer.Name = "textControlsContainer";
-			// 
-			// textControlsContainer.Panel1
-			// 
-			this.textControlsContainer.Panel1.Controls.Add(this.elements);
-			this.textControlsContainer.Panel1MinSize = 300;
-			// 
-			// textControlsContainer.Panel2
-			// 
-			this.textControlsContainer.Panel2.Controls.Add(this.searchReplaceTabs);
-			this.textControlsContainer.Panel2.Controls.Add(this.textGroup);
-			this.textControlsContainer.Panel2MinSize = 410;
-			this.textControlsContainer.Size = new System.Drawing.Size(779, 423);
-			this.textControlsContainer.SplitterDistance = 316;
-			this.textControlsContainer.SplitterWidth = 5;
-			this.textControlsContainer.TabIndex = 14;
-			// 
-			// elements
-			// 
-			this.elements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.autoIdColumn,
-            this.aliasColumn,
-            this.originalColumn,
-            this.translateColumn});
-			this.elements.ContextMenuStrip = this.elementsContextMenu;
-			this.elements.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.elements.FullRowSelect = true;
-			this.elements.GridLines = true;
-			this.elements.HideSelection = false;
-			this.elements.Location = new System.Drawing.Point(0, 0);
-			this.elements.MultiSelect = false;
-			this.elements.Name = "elements";
-			this.elements.Size = new System.Drawing.Size(316, 423);
-			this.elements.TabIndex = 0;
-			this.elements.UseCompatibleStateImageBehavior = false;
-			this.elements.View = System.Windows.Forms.View.Details;
-			this.elements.VirtualMode = true;
-			this.elements.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.elements_RetrieveVirtualItem);
-			this.elements.SelectedIndexChanged += new System.EventHandler(this.elements_SelectedIndexChanged);
-			// 
-			// autoIdColumn
-			// 
-			this.autoIdColumn.Text = "AutoId";
-			// 
-			// aliasColumn
-			// 
-			this.aliasColumn.Text = "Alias";
-			this.aliasColumn.Width = 300;
-			// 
-			// originalColumn
-			// 
-			this.originalColumn.Text = "Original";
-			this.originalColumn.Width = 300;
-			// 
-			// translateColumn
-			// 
-			this.translateColumn.Text = "Translate";
-			this.translateColumn.Width = 300;
-			// 
-			// searchReplaceTabs
-			// 
-			this.searchReplaceTabs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.searchReplaceTabs.Controls.Add(searchTab);
-			this.searchReplaceTabs.Controls.Add(replaceTab);
-			this.searchReplaceTabs.Controls.Add(this.tabPage1);
-			this.searchReplaceTabs.Location = new System.Drawing.Point(3, 4);
-			this.searchReplaceTabs.Name = "searchReplaceTabs";
-			this.searchReplaceTabs.SelectedIndex = 0;
-			this.searchReplaceTabs.Size = new System.Drawing.Size(446, 141);
-			this.searchReplaceTabs.TabIndex = 14;
 			// 
 			// searchTab
 			// 
@@ -395,12 +121,8 @@ namespace BnsXmlEditor
 			searchTab.Controls.Add(this.searchIsRegex);
 			searchTab.Controls.Add(this.searchQuery);
 			searchTab.Controls.Add(this.searchNotIgnoreCase);
-			searchTab.Location = new System.Drawing.Point(4, 22);
+			resources.ApplyResources(searchTab, "searchTab");
 			searchTab.Name = "searchTab";
-			searchTab.Padding = new System.Windows.Forms.Padding(3);
-			searchTab.Size = new System.Drawing.Size(438, 115);
-			searchTab.TabIndex = 0;
-			searchTab.Text = "Поиск";
 			searchTab.UseVisualStyleBackColor = true;
 			// 
 			// searchFieldGroup
@@ -408,103 +130,67 @@ namespace BnsXmlEditor
 			this.searchFieldGroup.Controls.Add(this.searchTranslateField);
 			this.searchFieldGroup.Controls.Add(this.searchOriginalField);
 			this.searchFieldGroup.Controls.Add(this.searchAliasField);
-			this.searchFieldGroup.Location = new System.Drawing.Point(9, 57);
+			resources.ApplyResources(this.searchFieldGroup, "searchFieldGroup");
 			this.searchFieldGroup.Name = "searchFieldGroup";
-			this.searchFieldGroup.Size = new System.Drawing.Size(198, 47);
-			this.searchFieldGroup.TabIndex = 13;
 			this.searchFieldGroup.TabStop = false;
-			this.searchFieldGroup.Text = "Поле для поиска";
 			// 
 			// searchTranslateField
 			// 
-			this.searchTranslateField.AutoSize = true;
-			this.searchTranslateField.Location = new System.Drawing.Point(126, 20);
+			resources.ApplyResources(this.searchTranslateField, "searchTranslateField");
 			this.searchTranslateField.Name = "searchTranslateField";
-			this.searchTranslateField.Size = new System.Drawing.Size(69, 17);
-			this.searchTranslateField.TabIndex = 2;
 			this.searchTranslateField.TabStop = true;
-			this.searchTranslateField.Text = "Translate";
 			this.searchTranslateField.UseVisualStyleBackColor = true;
 			this.searchTranslateField.Click += new System.EventHandler(this.searchField_Click);
 			// 
 			// searchOriginalField
 			// 
-			this.searchOriginalField.AutoSize = true;
-			this.searchOriginalField.Location = new System.Drawing.Point(60, 20);
+			resources.ApplyResources(this.searchOriginalField, "searchOriginalField");
 			this.searchOriginalField.Name = "searchOriginalField";
-			this.searchOriginalField.Size = new System.Drawing.Size(60, 17);
-			this.searchOriginalField.TabIndex = 1;
 			this.searchOriginalField.TabStop = true;
-			this.searchOriginalField.Text = "Original";
 			this.searchOriginalField.UseVisualStyleBackColor = true;
 			this.searchOriginalField.Click += new System.EventHandler(this.searchField_Click);
 			// 
 			// searchAliasField
 			// 
-			this.searchAliasField.AutoSize = true;
+			resources.ApplyResources(this.searchAliasField, "searchAliasField");
 			this.searchAliasField.Checked = true;
-			this.searchAliasField.Location = new System.Drawing.Point(7, 20);
 			this.searchAliasField.Name = "searchAliasField";
-			this.searchAliasField.Size = new System.Drawing.Size(47, 17);
-			this.searchAliasField.TabIndex = 0;
 			this.searchAliasField.TabStop = true;
-			this.searchAliasField.Text = "Alias";
 			this.searchAliasField.UseVisualStyleBackColor = true;
 			this.searchAliasField.Click += new System.EventHandler(this.searchField_Click);
 			// 
 			// search
 			// 
-			this.search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.search.Location = new System.Drawing.Point(276, 86);
+			resources.ApplyResources(this.search, "search");
 			this.search.Name = "search";
-			this.search.Size = new System.Drawing.Size(75, 23);
-			this.search.TabIndex = 12;
-			this.search.Text = "Найти";
 			this.search.UseVisualStyleBackColor = true;
 			this.search.Click += new System.EventHandler(this.search_Click);
 			// 
 			// cancelSearch
 			// 
-			this.cancelSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cancelSearch.Location = new System.Drawing.Point(357, 86);
+			resources.ApplyResources(this.cancelSearch, "cancelSearch");
 			this.cancelSearch.Name = "cancelSearch";
-			this.cancelSearch.Size = new System.Drawing.Size(75, 23);
-			this.cancelSearch.TabIndex = 4;
-			this.cancelSearch.Text = "Сброс";
 			this.cancelSearch.UseVisualStyleBackColor = true;
 			this.cancelSearch.Click += new System.EventHandler(this.cancelSearch_Click);
 			// 
 			// searchIsRegex
 			// 
-			this.searchIsRegex.AutoSize = true;
-			this.searchIsRegex.Location = new System.Drawing.Point(135, 33);
+			resources.ApplyResources(this.searchIsRegex, "searchIsRegex");
 			this.searchIsRegex.Name = "searchIsRegex";
-			this.searchIsRegex.Size = new System.Drawing.Size(146, 17);
-			this.searchIsRegex.TabIndex = 11;
-			this.searchIsRegex.Text = "Регулярное выражение";
 			this.searchIsRegex.UseVisualStyleBackColor = true;
 			// 
 			// searchQuery
 			// 
-			this.searchQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			resources.ApplyResources(this.searchQuery, "searchQuery");
 			this.searchQuery.HistoryFile = "searchHistory.bin";
 			this.searchQuery.HistoryMaxItems = 40;
-			this.searchQuery.ImeMode = System.Windows.Forms.ImeMode.On;
-			this.searchQuery.Location = new System.Drawing.Point(6, 6);
 			this.searchQuery.Name = "searchQuery";
-			this.searchQuery.Size = new System.Drawing.Size(426, 21);
-			this.searchQuery.TabIndex = 10;
 			this.searchQuery.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchQuery_KeyDown);
 			// 
 			// searchNotIgnoreCase
 			// 
-			this.searchNotIgnoreCase.AutoSize = true;
-			this.searchNotIgnoreCase.Location = new System.Drawing.Point(9, 33);
+			resources.ApplyResources(this.searchNotIgnoreCase, "searchNotIgnoreCase");
 			this.searchNotIgnoreCase.Name = "searchNotIgnoreCase";
-			this.searchNotIgnoreCase.Size = new System.Drawing.Size(120, 17);
-			this.searchNotIgnoreCase.TabIndex = 1;
-			this.searchNotIgnoreCase.Text = "С учетом регистра";
 			this.searchNotIgnoreCase.UseVisualStyleBackColor = true;
 			// 
 			// replaceTab
@@ -517,226 +203,424 @@ namespace BnsXmlEditor
 			replaceTab.Controls.Add(this.label1);
 			replaceTab.Controls.Add(this.replaceString);
 			replaceTab.Controls.Add(this.replaceSearchQuery);
-			replaceTab.Location = new System.Drawing.Point(4, 22);
+			resources.ApplyResources(replaceTab, "replaceTab");
 			replaceTab.Name = "replaceTab";
-			replaceTab.Padding = new System.Windows.Forms.Padding(3);
-			replaceTab.Size = new System.Drawing.Size(438, 115);
-			replaceTab.TabIndex = 1;
-			replaceTab.Text = "Замена";
 			replaceTab.UseVisualStyleBackColor = true;
 			// 
 			// replaceCancel
 			// 
-			this.replaceCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceCancel.Location = new System.Drawing.Point(357, 86);
+			resources.ApplyResources(this.replaceCancel, "replaceCancel");
 			this.replaceCancel.Name = "replaceCancel";
-			this.replaceCancel.Size = new System.Drawing.Size(75, 23);
-			this.replaceCancel.TabIndex = 16;
-			this.replaceCancel.Text = "Сброс";
 			this.replaceCancel.UseVisualStyleBackColor = true;
 			this.replaceCancel.Click += new System.EventHandler(this.replaceCancel_Click);
 			// 
 			// replace
 			// 
-			this.replace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replace.Location = new System.Drawing.Point(181, 86);
+			resources.ApplyResources(this.replace, "replace");
 			this.replace.Name = "replace";
-			this.replace.Size = new System.Drawing.Size(75, 23);
-			this.replace.TabIndex = 15;
-			this.replace.Text = "Заменить";
 			this.replace.UseVisualStyleBackColor = true;
-			this.replace.Visible = false;
 			// 
 			// replaceAll
 			// 
-			this.replaceAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.replaceAll.Location = new System.Drawing.Point(262, 86);
+			resources.ApplyResources(this.replaceAll, "replaceAll");
 			this.replaceAll.Name = "replaceAll";
-			this.replaceAll.Size = new System.Drawing.Size(88, 23);
-			this.replaceAll.TabIndex = 14;
-			this.replaceAll.Text = "Заменить все";
 			this.replaceAll.UseVisualStyleBackColor = true;
 			this.replaceAll.Click += new System.EventHandler(this.replaceAll_Click);
 			// 
 			// replaceIsRegex
 			// 
-			this.replaceIsRegex.AutoSize = true;
-			this.replaceIsRegex.Location = new System.Drawing.Point(136, 61);
+			resources.ApplyResources(this.replaceIsRegex, "replaceIsRegex");
 			this.replaceIsRegex.Name = "replaceIsRegex";
-			this.replaceIsRegex.Size = new System.Drawing.Size(146, 17);
-			this.replaceIsRegex.TabIndex = 13;
-			this.replaceIsRegex.Text = "Регулярное выражение";
 			this.replaceIsRegex.UseVisualStyleBackColor = true;
 			// 
 			// replaceNotIgnoreCase
 			// 
-			this.replaceNotIgnoreCase.AutoSize = true;
-			this.replaceNotIgnoreCase.Location = new System.Drawing.Point(10, 61);
+			resources.ApplyResources(this.replaceNotIgnoreCase, "replaceNotIgnoreCase");
 			this.replaceNotIgnoreCase.Name = "replaceNotIgnoreCase";
-			this.replaceNotIgnoreCase.Size = new System.Drawing.Size(120, 17);
-			this.replaceNotIgnoreCase.TabIndex = 12;
-			this.replaceNotIgnoreCase.Text = "С учетом регистра";
 			this.replaceNotIgnoreCase.UseVisualStyleBackColor = true;
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(7, 34);
+			resources.ApplyResources(this.label1, "label1");
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(76, 21);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "Заменить на:";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// replaceString
 			// 
-			this.replaceString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			resources.ApplyResources(this.replaceString, "replaceString");
 			this.replaceString.FormattingEnabled = true;
 			this.replaceString.HistoryFile = "replaceHistory2.bin";
 			this.replaceString.HistoryMaxItems = 40;
-			this.replaceString.Location = new System.Drawing.Point(89, 34);
 			this.replaceString.Name = "replaceString";
-			this.replaceString.Size = new System.Drawing.Size(343, 21);
-			this.replaceString.TabIndex = 1;
 			// 
 			// replaceSearchQuery
 			// 
-			this.replaceSearchQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			resources.ApplyResources(this.replaceSearchQuery, "replaceSearchQuery");
 			this.replaceSearchQuery.FormattingEnabled = true;
 			this.replaceSearchQuery.HistoryFile = "replaceHistory1.bin";
 			this.replaceSearchQuery.HistoryMaxItems = 40;
-			this.replaceSearchQuery.Location = new System.Drawing.Point(6, 6);
 			this.replaceSearchQuery.Name = "replaceSearchQuery";
-			this.replaceSearchQuery.Size = new System.Drawing.Size(426, 21);
-			this.replaceSearchQuery.TabIndex = 0;
 			// 
-			// tabPage1
+			// textControlsContainer
 			// 
-			this.tabPage1.Controls.Add(this.goToAutoId);
-			this.tabPage1.Controls.Add(this.autoIdValue);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(438, 115);
-			this.tabPage1.TabIndex = 2;
-			this.tabPage1.Text = "Переход на Id";
-			this.tabPage1.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.textControlsContainer, "textControlsContainer");
+			this.textControlsContainer.Name = "textControlsContainer";
+			// 
+			// textControlsContainer.Panel1
+			// 
+			this.textControlsContainer.Panel1.Controls.Add(this.elements);
+			// 
+			// textControlsContainer.Panel2
+			// 
+			this.textControlsContainer.Panel2.Controls.Add(this.searchReplaceTabs);
+			this.textControlsContainer.Panel2.Controls.Add(this.textGroup);
+			// 
+			// elements
+			// 
+			this.elements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.autoIdColumn,
+            this.aliasColumn,
+            this.originalColumn,
+            this.translateColumn});
+			this.elements.ContextMenuStrip = this.elementsContextMenu;
+			resources.ApplyResources(this.elements, "elements");
+			this.elements.FullRowSelect = true;
+			this.elements.GridLines = true;
+			this.elements.HideSelection = false;
+			this.elements.MultiSelect = false;
+			this.elements.Name = "elements";
+			this.elements.UseCompatibleStateImageBehavior = false;
+			this.elements.View = System.Windows.Forms.View.Details;
+			this.elements.VirtualMode = true;
+			this.elements.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.elements_RetrieveVirtualItem);
+			this.elements.SelectedIndexChanged += new System.EventHandler(this.elements_SelectedIndexChanged);
+			// 
+			// autoIdColumn
+			// 
+			resources.ApplyResources(this.autoIdColumn, "autoIdColumn");
+			// 
+			// aliasColumn
+			// 
+			resources.ApplyResources(this.aliasColumn, "aliasColumn");
+			// 
+			// originalColumn
+			// 
+			resources.ApplyResources(this.originalColumn, "originalColumn");
+			// 
+			// translateColumn
+			// 
+			resources.ApplyResources(this.translateColumn, "translateColumn");
+			// 
+			// elementsContextMenu
+			// 
+			this.elementsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.elementsContextMenuAliasCopy});
+			this.elementsContextMenu.Name = "elementsContextMenu";
+			this.elementsContextMenu.ShowImageMargin = false;
+			resources.ApplyResources(this.elementsContextMenu, "elementsContextMenu");
+			// 
+			// elementsContextMenuAliasCopy
+			// 
+			this.elementsContextMenuAliasCopy.Name = "elementsContextMenuAliasCopy";
+			resources.ApplyResources(this.elementsContextMenuAliasCopy, "elementsContextMenuAliasCopy");
+			this.elementsContextMenuAliasCopy.Click += new System.EventHandler(this.elementsContextMenuAliasCopy_Click);
+			// 
+			// searchReplaceTabs
+			// 
+			resources.ApplyResources(this.searchReplaceTabs, "searchReplaceTabs");
+			this.searchReplaceTabs.Controls.Add(searchTab);
+			this.searchReplaceTabs.Controls.Add(replaceTab);
+			this.searchReplaceTabs.Controls.Add(this.moveToIdPage);
+			this.searchReplaceTabs.Name = "searchReplaceTabs";
+			this.searchReplaceTabs.SelectedIndex = 0;
+			// 
+			// moveToIdPage
+			// 
+			this.moveToIdPage.Controls.Add(this.goToAutoId);
+			this.moveToIdPage.Controls.Add(this.autoIdValue);
+			resources.ApplyResources(this.moveToIdPage, "moveToIdPage");
+			this.moveToIdPage.Name = "moveToIdPage";
+			this.moveToIdPage.UseVisualStyleBackColor = true;
 			// 
 			// goToAutoId
 			// 
-			this.goToAutoId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.goToAutoId.Location = new System.Drawing.Point(357, 86);
+			resources.ApplyResources(this.goToAutoId, "goToAutoId");
 			this.goToAutoId.Name = "goToAutoId";
-			this.goToAutoId.Size = new System.Drawing.Size(75, 23);
-			this.goToAutoId.TabIndex = 1;
-			this.goToAutoId.Text = "Перейти";
 			this.goToAutoId.UseVisualStyleBackColor = true;
 			this.goToAutoId.Click += new System.EventHandler(this.goToAutoId_Click);
 			// 
 			// autoIdValue
 			// 
-			this.autoIdValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			resources.ApplyResources(this.autoIdValue, "autoIdValue");
 			this.autoIdValue.FormattingEnabled = true;
 			this.autoIdValue.HistoryFile = "autoIdHistory.bin";
 			this.autoIdValue.HistoryMaxItems = 40;
-			this.autoIdValue.Location = new System.Drawing.Point(6, 7);
 			this.autoIdValue.Name = "autoIdValue";
-			this.autoIdValue.Size = new System.Drawing.Size(426, 21);
-			this.autoIdValue.TabIndex = 0;
 			this.autoIdValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.autoIdValue_KeyDown);
-			this.autoIdValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.autoIdValue_KeyPress);
 			// 
 			// textGroup
 			// 
-			this.textGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			resources.ApplyResources(this.textGroup, "textGroup");
 			this.textGroup.Controls.Add(this.tableLayoutPanel1);
-			this.textGroup.Location = new System.Drawing.Point(3, 151);
 			this.textGroup.Name = "textGroup";
-			this.textGroup.Size = new System.Drawing.Size(446, 269);
-			this.textGroup.TabIndex = 13;
 			this.textGroup.TabStop = false;
-			this.textGroup.Text = "Текст";
 			// 
 			// tableLayoutPanel1
 			// 
-			this.tableLayoutPanel1.ColumnCount = 1;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
 			this.tableLayoutPanel1.Controls.Add(this.originalText, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.translatedText, 0, 1);
-			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(440, 250);
-			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// originalText
 			// 
-			this.originalText.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.originalText.Location = new System.Drawing.Point(3, 3);
+			resources.ApplyResources(this.originalText, "originalText");
 			this.originalText.Name = "originalText";
 			this.originalText.ReadOnly = true;
-			this.originalText.Size = new System.Drawing.Size(434, 119);
-			this.originalText.TabIndex = 7;
-			this.originalText.Text = "";
 			this.originalText.TextChanged += new System.EventHandler(this.originalText_TextChanged);
 			// 
 			// translatedText
 			// 
-			this.translatedText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			resources.ApplyResources(this.translatedText, "translatedText");
 			this.translatedText.ContextMenuStrip = this.tagsContextMenu;
-			this.translatedText.Location = new System.Drawing.Point(3, 128);
-			this.translatedText.Multiline = true;
 			this.translatedText.Name = "translatedText";
-			this.translatedText.Size = new System.Drawing.Size(434, 119);
-			this.translatedText.TabIndex = 8;
 			this.translatedText.TextChanged += new System.EventHandler(this.translatedText_TextChanged);
 			this.translatedText.Leave += new System.EventHandler(this.translatedText_Leave);
 			// 
+			// tagsContextMenu
+			// 
+			this.tagsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tagsContextMenuBr});
+			this.tagsContextMenu.Name = "tagsContextMenu";
+			this.tagsContextMenu.ShowImageMargin = false;
+			resources.ApplyResources(this.tagsContextMenu, "tagsContextMenu");
+			// 
+			// tagsContextMenuBr
+			// 
+			this.tagsContextMenuBr.Name = "tagsContextMenuBr";
+			resources.ApplyResources(this.tagsContextMenuBr, "tagsContextMenuBr");
+			this.tagsContextMenuBr.Click += new System.EventHandler(this.tagsContextMenuBr_Click);
+			// 
+			// mainMenu
+			// 
+			this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuFile,
+            this.правкаToolStripMenuItem,
+            this.mainMenuView,
+            this.mainMenuLanguage});
+			resources.ApplyResources(this.mainMenu, "mainMenu");
+			this.mainMenu.Name = "mainMenu";
+			// 
+			// mainMenuFile
+			// 
+			this.mainMenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuOpen,
+            this.mainMenuSave,
+            this.mainMenuSaveAs,
+            this.mainMenuFileSeparator,
+            this.mainMenuExit});
+			this.mainMenuFile.Name = "mainMenuFile";
+			resources.ApplyResources(this.mainMenuFile, "mainMenuFile");
+			// 
+			// mainMenuOpen
+			// 
+			this.mainMenuOpen.Name = "mainMenuOpen";
+			resources.ApplyResources(this.mainMenuOpen, "mainMenuOpen");
+			this.mainMenuOpen.Click += new System.EventHandler(this.mainMenuOpen_Click);
+			// 
+			// mainMenuSave
+			// 
+			this.mainMenuSave.Name = "mainMenuSave";
+			resources.ApplyResources(this.mainMenuSave, "mainMenuSave");
+			this.mainMenuSave.Click += new System.EventHandler(this.mainMenuSave_Click);
+			// 
+			// mainMenuSaveAs
+			// 
+			this.mainMenuSaveAs.Name = "mainMenuSaveAs";
+			resources.ApplyResources(this.mainMenuSaveAs, "mainMenuSaveAs");
+			this.mainMenuSaveAs.Click += new System.EventHandler(this.mainMenuSaveAs_Click);
+			// 
+			// mainMenuFileSeparator
+			// 
+			this.mainMenuFileSeparator.Name = "mainMenuFileSeparator";
+			resources.ApplyResources(this.mainMenuFileSeparator, "mainMenuFileSeparator");
+			// 
+			// mainMenuExit
+			// 
+			this.mainMenuExit.Name = "mainMenuExit";
+			resources.ApplyResources(this.mainMenuExit, "mainMenuExit");
+			this.mainMenuExit.Click += new System.EventHandler(this.mainMenuExit_Click);
+			// 
+			// правкаToolStripMenuItem
+			// 
+			this.правкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miUndo,
+            this.miRedo});
+			this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
+			resources.ApplyResources(this.правкаToolStripMenuItem, "правкаToolStripMenuItem");
+			// 
+			// miUndo
+			// 
+			resources.ApplyResources(this.miUndo, "miUndo");
+			this.miUndo.Name = "miUndo";
+			this.miUndo.Click += new System.EventHandler(this.miUndo_Click);
+			// 
+			// miRedo
+			// 
+			resources.ApplyResources(this.miRedo, "miRedo");
+			this.miRedo.Name = "miRedo";
+			this.miRedo.Click += new System.EventHandler(this.miRedo_Click);
+			// 
+			// mainMenuView
+			// 
+			this.mainMenuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuElementsColumns,
+            this.mainMenuViewHighlight,
+            this.mainMenuViewHighlightWords});
+			this.mainMenuView.Name = "mainMenuView";
+			resources.ApplyResources(this.mainMenuView, "mainMenuView");
+			// 
+			// mainMenuElementsColumns
+			// 
+			this.mainMenuElementsColumns.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miAutoIdColumn,
+            this.miAliasColumn,
+            this.miOriginalColumn,
+            this.miTranslatedColumn});
+			this.mainMenuElementsColumns.Name = "mainMenuElementsColumns";
+			resources.ApplyResources(this.mainMenuElementsColumns, "mainMenuElementsColumns");
+			// 
+			// miAutoIdColumn
+			// 
+			this.miAutoIdColumn.Checked = true;
+			this.miAutoIdColumn.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.miAutoIdColumn.Name = "miAutoIdColumn";
+			resources.ApplyResources(this.miAutoIdColumn, "miAutoIdColumn");
+			// 
+			// miAliasColumn
+			// 
+			this.miAliasColumn.Checked = true;
+			this.miAliasColumn.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.miAliasColumn.Name = "miAliasColumn";
+			resources.ApplyResources(this.miAliasColumn, "miAliasColumn");
+			// 
+			// miOriginalColumn
+			// 
+			this.miOriginalColumn.Checked = true;
+			this.miOriginalColumn.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.miOriginalColumn.Name = "miOriginalColumn";
+			resources.ApplyResources(this.miOriginalColumn, "miOriginalColumn");
+			// 
+			// miTranslatedColumn
+			// 
+			this.miTranslatedColumn.Checked = true;
+			this.miTranslatedColumn.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.miTranslatedColumn.Name = "miTranslatedColumn";
+			resources.ApplyResources(this.miTranslatedColumn, "miTranslatedColumn");
+			// 
+			// mainMenuViewHighlight
+			// 
+			this.mainMenuViewHighlight.Checked = true;
+			this.mainMenuViewHighlight.CheckOnClick = true;
+			this.mainMenuViewHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.mainMenuViewHighlight.Name = "mainMenuViewHighlight";
+			resources.ApplyResources(this.mainMenuViewHighlight, "mainMenuViewHighlight");
+			this.mainMenuViewHighlight.CheckedChanged += new System.EventHandler(this.mainMenuViewHighlight_CheckedChanged);
+			// 
+			// mainMenuViewHighlightWords
+			// 
+			this.mainMenuViewHighlightWords.Checked = true;
+			this.mainMenuViewHighlightWords.CheckOnClick = true;
+			this.mainMenuViewHighlightWords.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.mainMenuViewHighlightWords.Name = "mainMenuViewHighlightWords";
+			resources.ApplyResources(this.mainMenuViewHighlightWords, "mainMenuViewHighlightWords");
+			this.mainMenuViewHighlightWords.CheckedChanged += new System.EventHandler(this.mainMenuViewHighlightWords_CheckedChanged);
+			// 
+			// mainMenuLanguage
+			// 
+			this.mainMenuLanguage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuLanguageEnglish,
+            this.mainMenuLanguageRussian});
+			this.mainMenuLanguage.Name = "mainMenuLanguage";
+			resources.ApplyResources(this.mainMenuLanguage, "mainMenuLanguage");
+			// 
+			// mainMenuLanguageEnglish
+			// 
+			this.mainMenuLanguageEnglish.Name = "mainMenuLanguageEnglish";
+			resources.ApplyResources(this.mainMenuLanguageEnglish, "mainMenuLanguageEnglish");
+			this.mainMenuLanguageEnglish.Click += new System.EventHandler(this.mainMenuLanguageEnglish_Click);
+			// 
+			// mainMenuLanguageRussian
+			// 
+			this.mainMenuLanguageRussian.Name = "mainMenuLanguageRussian";
+			resources.ApplyResources(this.mainMenuLanguageRussian, "mainMenuLanguageRussian");
+			this.mainMenuLanguageRussian.Click += new System.EventHandler(this.mainMenuLanguageRussian_Click);
+			// 
+			// open
+			// 
+			resources.ApplyResources(this.open, "open");
+			this.open.SupportMultiDottedExtensions = true;
+			// 
+			// statusBar
+			// 
+			this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemsCountHint,
+            this.itemsCount});
+			resources.ApplyResources(this.statusBar, "statusBar");
+			this.statusBar.Name = "statusBar";
+			this.statusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+			// 
+			// itemsCountHint
+			// 
+			this.itemsCountHint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.itemsCountHint.Name = "itemsCountHint";
+			resources.ApplyResources(this.itemsCountHint, "itemsCountHint");
+			this.itemsCountHint.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+			// 
+			// itemsCount
+			// 
+			this.itemsCount.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.itemsCount.Name = "itemsCount";
+			resources.ApplyResources(this.itemsCount, "itemsCount");
+			// 
+			// save
+			// 
+			this.save.DefaultExt = "xml";
+			resources.ApplyResources(this.save, "save");
+			this.save.SupportMultiDottedExtensions = true;
+			// 
 			// MainForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(803, 476);
 			this.Controls.Add(this.textControlsContainer);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.mainMenu);
 			this.MainMenuStrip = this.mainMenu;
-			this.MinimumSize = new System.Drawing.Size(819, 514);
 			this.Name = "MainForm";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Bns Xml Editor";
-			this.elementsContextMenu.ResumeLayout(false);
-			this.tagsContextMenu.ResumeLayout(false);
-			this.mainMenu.ResumeLayout(false);
-			this.mainMenu.PerformLayout();
-			this.statusBar.ResumeLayout(false);
-			this.statusBar.PerformLayout();
-			this.textControlsContainer.Panel1.ResumeLayout(false);
-			this.textControlsContainer.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.textControlsContainer)).EndInit();
-			this.textControlsContainer.ResumeLayout(false);
-			this.searchReplaceTabs.ResumeLayout(false);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			searchTab.ResumeLayout(false);
 			searchTab.PerformLayout();
 			this.searchFieldGroup.ResumeLayout(false);
 			this.searchFieldGroup.PerformLayout();
 			replaceTab.ResumeLayout(false);
 			replaceTab.PerformLayout();
-			this.tabPage1.ResumeLayout(false);
+			this.textControlsContainer.Panel1.ResumeLayout(false);
+			this.textControlsContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.textControlsContainer)).EndInit();
+			this.textControlsContainer.ResumeLayout(false);
+			this.elementsContextMenu.ResumeLayout(false);
+			this.searchReplaceTabs.ResumeLayout(false);
+			this.moveToIdPage.ResumeLayout(false);
 			this.textGroup.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
+			this.tagsContextMenu.ResumeLayout(false);
+			this.mainMenu.ResumeLayout(false);
+			this.mainMenu.PerformLayout();
+			this.statusBar.ResumeLayout(false);
+			this.statusBar.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -790,7 +674,7 @@ namespace BnsXmlEditor
 		private System.Windows.Forms.RadioButton searchOriginalField;
 		private System.Windows.Forms.RadioButton searchAliasField;
 		private System.Windows.Forms.GroupBox searchFieldGroup;
-		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.TabPage moveToIdPage;
 		private System.Windows.Forms.Button goToAutoId;
 		private HistoryComboBox autoIdValue;
 		private System.Windows.Forms.ColumnHeader autoIdColumn;
@@ -799,6 +683,12 @@ namespace BnsXmlEditor
 		private System.Windows.Forms.ToolStripMenuItem miAliasColumn;
 		private System.Windows.Forms.ToolStripMenuItem miOriginalColumn;
 		private System.Windows.Forms.ToolStripMenuItem miTranslatedColumn;
+		private System.Windows.Forms.ToolStripMenuItem правкаToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem miUndo;
+		private System.Windows.Forms.ToolStripMenuItem miRedo;
+		private System.Windows.Forms.ToolStripMenuItem mainMenuLanguage;
+		private System.Windows.Forms.ToolStripMenuItem mainMenuLanguageEnglish;
+		private System.Windows.Forms.ToolStripMenuItem mainMenuLanguageRussian;
 	}
 }
 

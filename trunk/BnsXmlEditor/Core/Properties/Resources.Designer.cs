@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BnsXmlEditorWpf.Properties {
+namespace Core.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BnsXmlEditorWpf.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BnsXmlEditorWpf.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,34 @@ namespace BnsXmlEditorWpf.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by autoId field not supported..
+        /// </summary>
+        internal static string AutoIdSearchNotSupported {
+            get {
+                return ResourceManager.GetString("AutoIdSearchNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xs:schema attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;xs:element name=&quot;text&quot;&gt;
+        ///    &lt;xs:complexType&gt;
+        ///      &lt;xs:sequence&gt;
+        ///        &lt;xs:element maxOccurs=&quot;unbounded&quot; name=&quot;TEXT&quot;&gt;
+        ///          &lt;xs:complexType&gt;
+        ///            &lt;xs:sequence&gt;
+        ///              &lt;xs:element name=&quot;autoId&quot; type=&quot;xs:unsignedInt&quot; /&gt;
+        ///              &lt;xs:element name=&quot;alias&quot; type=&quot;xs:string&quot; /&gt;
+        ///              &lt;xs:element name=&quot;original&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string translate {
+            get {
+                return ResourceManager.GetString("translate", resourceCulture);
             }
         }
     }
