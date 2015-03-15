@@ -7,10 +7,25 @@ namespace XmlMigrater
 	{
 		public string Translate { get; set; }
 
-		public TranslatedItem(string autoId, string alias, string original, string translate)
+		public TranslatedItem(int autoId, string alias, string original, string translate)
 			: base(autoId, alias, original)
 		{
 			Translate = translate;
+		}
+
+		public TranslatedItem(OriginalItem originalItem)
+			: this(originalItem.AutoId, originalItem.Alias, originalItem.Text, originalItem.Text)
+		{
+		}
+
+		public new static TranslatedItem Create(XElement xElement)
+		{
+			return new TranslatedItem(
+				int.Parse(xElement.Element("autoId").Value),
+				xElement.Element("alias").Value,
+				xElement.Element("text").Value,
+				xElement.Element("replacement").Value
+				);
 		}
 
 		public override XElement GetXElement()

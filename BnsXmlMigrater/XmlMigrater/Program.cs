@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using XmlMigrater;
 
 namespace XmlMigrater
 {
 	internal class Program
 	{
-		private static int percentS;
-
 		private static void Main(string[] args)
 		{
 			ReassignId(args);
@@ -33,39 +28,29 @@ namespace XmlMigrater
 
 		static void CreateNewTranslateFile()
 		{
-			List<OriginalItem> original = XmlWorker.ReadOriginalFile(ReadOriginalFilePath());
-			List<TranslatedItem> translated = XmlWorker.CreateNewTranslateFile(original);
+			IEnumerable<OriginalItem> original = XmlWorker.ReadOriginalFile(ReadOriginalFilePath());
+			IEnumerable<TranslatedItem> translated = XmlWorker.CreateNewTranslateFile(original);
 			XmlWorker.SaveToXml(translated, "new_local.xml");
 		}
 
-		private static void ReplaceKoreianTranslate()
+		private static void ReplaceKoreanTranslate()
 		{
-			List<TranslatedItem> result = XmlWorker.ReplaceKoreianTranslate(XmlWorker.ReadTranslateFile("new_local.xml"));
+			IEnumerable<TranslatedItem> result = XmlWorker.ReplaceKoreanTranslate(XmlWorker.ReadTranslateFile("new_local.xml"));
 			XmlWorker.SaveToXml(result, "new_local_repaired.xml");
-		}
-
-		static void BinarySerialize()
-		{
-			SortedList<int, TranslatedItem> list = XmlWorker.ReadTranslateFile("new_local.xml");
-			using (FileStream stream = new FileStream("bin.bin", FileMode.Create))
-			{
-				BinaryFormatter formatter = new BinaryFormatter();
-				formatter.Serialize(stream, list);
-			}
 		}
 
 		private static void RepairTags()
 		{
 			SortedList<int, TranslatedItem> translated = XmlWorker.ReadTranslateFile("new_local_migrated.xml");
-			List<TranslatedItem> invalidTags;
-			List<TranslatedItem> result = XmlWorker.RepairTags(translated, out invalidTags);
+			IEnumerable<TranslatedItem> invalidTags;
+			IEnumerable<TranslatedItem> result = XmlWorker.RepairTags(translated, out invalidTags);
 			XmlWorker.SaveToXml(result, "new_local_repaired.xml");
 			XmlWorker.SaveToXml(invalidTags, "invalidTags.xml");
 		}
 
 		static void CheckTranslate()
 		{
-			List<OriginalItem> original = XmlWorker.ReadOriginalFile(ReadOriginalFilePath());
+			List<OriginalItem> original = (List<OriginalItem>)XmlWorker.ReadOriginalFile(ReadOriginalFilePath());
 			SortedList<int, TranslatedItem> translated = XmlWorker.ReadTranslateFile(ReadTranslateFilePath());
 
 			Console.WriteLine(XmlWorker.CheckTranslate(original, translated));
@@ -77,19 +62,19 @@ namespace XmlMigrater
 			Dictionary<string, OriginalItem> original = XmlWorker.ReadOriginalFileAlias("free.xml");
 			SortedList<int, TranslatedItem> translated = XmlWorker.ReadTranslateFile("new_local.xml");
 
-			List<TranslatedItem> result = XmlWorker.ReassignTranslate(original, translated);
+			IEnumerable<TranslatedItem> result = XmlWorker.ReassignTranslate(original, translated);
 			XmlWorker.SaveToXml(result, "new_local_migrated.xml");
 		}
 
-		private static void ReassignId(string[] args)
+		private static void ReassignId(IList<string> args)
 		{
-			if (args.Length == 2)
+			if (args.Count == 2)
 			{
-				List<OriginalItem> original = XmlWorker.ReadOriginalFile(args[0]);
+				IEnumerable<OriginalItem> original = XmlWorker.ReadOriginalFile(args[0]);
 				SortedList<int, TranslatedItem> translated = XmlWorker.ReadTranslateFile(args[1]);
 
-				List<TranslatedItem> result = new List<TranslatedItem>();
-				List<InvalidItem> invalidTranslate = new List<InvalidItem>();
+				IEnumerable<TranslatedItem> result;
+				IEnumerable<InvalidTranslateItem> invalidTranslate;
 
 				XmlWorker.ReassignId(original, translated, out result, out invalidTranslate);
 
@@ -101,18 +86,6 @@ namespace XmlMigrater
 				Console.WriteLine("Using:\nXmlMigrater.exe <original.xml> <translate.xml>");
 				Console.ReadKey();
 			}
-		}
-
-		private static void Progress(int percent)
-		{
-			//Console.Clear();
-
-			if (percent != percentS && percent % 5 == 0)
-			{
-				Console.SetCursorPosition(0, 0);
-				Console.Write(percent + "%");
-			}
-			percentS = percent;
 		}
 	}
 }

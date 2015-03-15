@@ -4,11 +4,11 @@ namespace XmlMigrater
 {
 	public class OriginalItem : IXLinqCompatible
 	{
-		public string AutoId { get; private set; }
+		public int AutoId { get; private set; }
 		public string Alias { get; private set; }
 		public string Text { get; private set; }
 
-		public OriginalItem(string autoId, string alias, string replacement)
+		public OriginalItem(int autoId, string alias, string replacement)
 		{
 			AutoId = autoId;
 			Alias = alias;
@@ -18,7 +18,7 @@ namespace XmlMigrater
 		public static OriginalItem Create(XElement xElement)
 		{
 			return new OriginalItem(
-				xElement.Element("autoId").Value, 
+				int.Parse(xElement.Element("autoId").Value), 
 				xElement.Element("alias").Value,
 				xElement.Element("text").Value
 				);

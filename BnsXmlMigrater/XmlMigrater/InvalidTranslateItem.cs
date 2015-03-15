@@ -2,11 +2,11 @@
 
 namespace XmlMigrater
 {
-	public class InvalidItem : TranslatedItem
+	public class InvalidTranslateItem : TranslatedItem
 	{
 		public string NewText { get; set; }
 
-		public InvalidItem(string autoId, string alias, string original, string replacement, string newText)
+		public InvalidTranslateItem(int autoId, string alias, string original, string replacement, string newText)
 			: base(autoId, alias, original, replacement)
 		{
 			NewText = newText;

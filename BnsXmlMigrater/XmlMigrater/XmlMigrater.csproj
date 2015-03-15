@@ -43,7 +43,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvalidItem.cs" />
+    <Compile Include="DataAccessLayer.cs" />
+    <Compile Include="InvalidTranslateItem.cs" />
     <Compile Include="IXLinqCompatible.cs" />
     <Compile Include="OriginalItem.cs" />
     <Compile Include="Program.cs" />
