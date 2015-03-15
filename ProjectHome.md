@@ -1,0 +1,1 @@
+Editor for Bns translate file
