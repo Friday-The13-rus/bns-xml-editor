@@ -12,26 +12,29 @@ namespace XmlMigrater
 {
 	static class DataAccessLayer
 	{
-		private static bool ValidateDocument(XDocument document, bool isTranslate)
+		private static bool ValidateDocument(XDocument document, string schema)
 		{
-			int errorsCount = 0;
-			XmlSchemaSet schemaSet = new XmlSchemaSet();
-			schemaSet.Add(String.Empty, new XmlTextReader(new StringReader(isTranslate ? Resources.translate : Resources.original)));
-			document.Validate(schemaSet, (sender, args) =>
-			{
-				errorsCount++;
-				if (errorsCount <= 20)
-					Console.WriteLine(args.Message);
-			});
+			bool isValid = true;
 
-			return errorsCount > 0;
+			using (StreamWriter validationErrorsLog = new StreamWriter("shemaValidationErrors.txt", true))
+			{
+				XmlSchemaSet schemaSet = new XmlSchemaSet();
+				schemaSet.Add(String.Empty, new XmlTextReader(new StringReader(schema)));
+				document.Validate(schemaSet, (sender, args) =>
+				{
+					isValid = false;
+					validationErrorsLog.WriteLine(args.Message);
+				});
+			}
+
+			return isValid;
 		}
 
 		public static IEnumerable<OriginalItem> ReadOriginalFile(string path)
 		{
 			XDocument doc = XDocument.Load(path, LoadOptions.PreserveWhitespace);
 
-			if (ValidateDocument(doc, false))
+			if (!ValidateDocument(doc, Resources.original))
 				throw new XmlSchemaValidationException();
 
 			XElement el = doc.Root;
@@ -39,7 +42,7 @@ namespace XmlMigrater
 			return el.Elements().Select(OriginalItem.Create).ToList();
 		}
 
-		public static Dictionary<string, OriginalItem> ReadOriginalFileAlias(string path)
+		public static IDictionary<string, OriginalItem> ReadOriginalFileAlias(string path)
 		{
 			XDocument doc = XDocument.Load(path);
 			XElement el = doc.Root;
@@ -52,15 +55,14 @@ namespace XmlMigrater
 			return temp;
 		}
 
-		public static SortedList<int, TranslatedItem> ReadTranslateFile(string path)
+		public static IEnumerable<TranslatedItem> ReadTranslateFile(string path)
 		{
 			XDocument doc = XDocument.Load(path);
-			if (ValidateDocument(doc, true))
+			if (!ValidateDocument(doc, Resources.translate))
 				throw new XmlSchemaValidationException();
 			XElement el = doc.Root;
 
-			List<TranslatedItem> temp = el.Elements().Select(TranslatedItem.Create).ToList();
-			return new SortedList<int, TranslatedItem>(temp.ToDictionary(elem => elem.AutoId));
+			return el.Elements().Select(TranslatedItem.Create).ToList();
 		}
 
 		public static void WriteOnlyChineseText(IEnumerable<OriginalItem> original, string path)
@@ -93,6 +95,24 @@ namespace XmlMigrater
 				BinaryFormatter formatter = new BinaryFormatter();
 				formatter.Serialize(stream, collection);
 			}
+		}
+
+		public static void SaveSplitted(IEnumerable<TranslatedItem> collection, string path)
+		{
+			XElement aliases = new XElement("Aliases");
+			XElement originals = new XElement("Originals");
+			XElement translates = new XElement("Translates");
+
+			foreach (TranslatedItem item in collection)
+			{
+				aliases.Add(new XElement("Alias", new XAttribute("autoId", item.AutoId), item.Alias));
+				originals.Add(new XElement("Original", new XAttribute("autoId", item.AutoId), item.Text));
+				translates.Add(new XElement("Translate", new XAttribute("autoId", item.AutoId), item.Translate));
+			}
+
+			aliases.Save(path + "_aliases.xml");
+			originals.Save(path + "_originals.xml");
+			translates.Save(path + "_translates.xml");
 		}
 	}
 }

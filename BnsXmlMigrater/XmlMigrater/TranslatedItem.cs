@@ -23,7 +23,7 @@ namespace XmlMigrater
 			return new TranslatedItem(
 				int.Parse(xElement.Element("autoId").Value),
 				xElement.Element("alias").Value,
-				xElement.Element("text").Value,
+				xElement.Element("original").Value,
 				xElement.Element("replacement").Value
 				);
 		}

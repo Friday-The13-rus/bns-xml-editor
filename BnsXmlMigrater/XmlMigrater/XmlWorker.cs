@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace XmlMigrater
 {
@@ -15,12 +14,12 @@ namespace XmlMigrater
 			return DataAccessLayer.ReadOriginalFile(path);
 		}
 
-		public static Dictionary<string, OriginalItem> ReadOriginalFileAlias(string path)
+		public static IDictionary<string, OriginalItem> ReadOriginalFileAlias(string path)
 		{
 			return DataAccessLayer.ReadOriginalFileAlias(path);
 		}
 
-		public static SortedList<int, TranslatedItem> ReadTranslateFile(string path)
+		public static IEnumerable<TranslatedItem> ReadTranslateFile(string path)
 		{
 			return DataAccessLayer.ReadTranslateFile(path);
 		}
@@ -40,6 +39,11 @@ namespace XmlMigrater
 			DataAccessLayer.SaveToBinary(collection, path);
 		}
 
+		public static void SaveSplitted(IEnumerable<TranslatedItem> collection, string path)
+		{
+			DataAccessLayer.SaveSplitted(collection, path);
+		}
+
 		#endregion
 
 		public static IEnumerable<TranslatedItem> CreateNewTranslateFile(IEnumerable<OriginalItem> original)
@@ -47,7 +51,7 @@ namespace XmlMigrater
 			return original.Select(e => new TranslatedItem(e)).ToList();
 		}
 
-		public static bool CheckTranslate(List<OriginalItem> original, SortedList<int, TranslatedItem> translated)
+		public static bool CheckTranslate(List<OriginalItem> original, List<TranslatedItem> translated)
 		{
 			if (original.Count != translated.Count)
 				return false;
@@ -164,28 +168,28 @@ namespace XmlMigrater
 			invalidTranslate = tempInvalid;
 		}
 
-		public static IEnumerable<TranslatedItem> ReassignTranslate(IDictionary<string, OriginalItem> original, IDictionary<int, TranslatedItem> translated)
+		public static IEnumerable<TranslatedItem> ReassignTranslate(IDictionary<string, OriginalItem> original, IEnumerable<TranslatedItem> translated)
 		{
 			List<TranslatedItem> tempResult = new List<TranslatedItem>();
 
 			Regex regex = new Regex("<(image|font).*?>", RegexOptions.Compiled | RegexOptions.Singleline);
 
-			foreach (KeyValuePair<int, TranslatedItem> line in translated)
+			foreach (TranslatedItem line in translated)
 			{
 				OriginalItem value;
 
-				if (original.TryGetValue(line.Value.Alias, out value) && 
+				if (original.TryGetValue(line.Alias, out value) && 
 					string.IsNullOrEmpty(value.Text) && 
 					value.Text[0] != '#' &&
-					AllTagsIsEquals(regex, line.Value.Text, value.Text) &&
-					(ContainsAnyChineseChar(line.Value.Translate) || !ContainsAnyRussianChar(line.Value.Translate))
+					AllTagsIsEquals(regex, line.Text, value.Text) &&
+					(ContainsAnyChineseChar(line.Translate) || !ContainsAnyRussianChar(line.Translate))
 				   )  
 				{
-					tempResult.Add(new TranslatedItem(line.Value.AutoId, line.Value.Alias, line.Value.Text, value.Text));
+					tempResult.Add(new TranslatedItem(line.AutoId, line.Alias, line.Text, value.Text));
 				}
 				else
 				{
-					tempResult.Add(new TranslatedItem(line.Value.AutoId, line.Value.Alias, line.Value.Text, line.Value.Translate));
+					tempResult.Add(new TranslatedItem(line.AutoId, line.Alias, line.Text, line.Translate));
 				}
 			}
 
@@ -248,7 +252,7 @@ namespace XmlMigrater
 			return true;
 		}
 
-		public static IEnumerable<TranslatedItem> RepairTags(IEnumerable<KeyValuePair<int, TranslatedItem>> translated, out IEnumerable<TranslatedItem> invalidTags)
+		public static IEnumerable<TranslatedItem> RepairTags(IEnumerable<TranslatedItem> translated, out IEnumerable<TranslatedItem> invalidTags)
 		{
 			List<TranslatedItem> result = new List<TranslatedItem>();
 			List<TranslatedItem> tempInvalidTags = new List<TranslatedItem>();
@@ -261,25 +265,25 @@ namespace XmlMigrater
 				"<image enablescale=\"true\" imagesetpath=\"00009076.Tooltip_BreakMaterial\" scalerate=\"1.3\"/>"
 			};
 
-			foreach (KeyValuePair<int, TranslatedItem> line in translated)
+			foreach (TranslatedItem line in translated)
 			{
 				string repairedTranslate;
-				if (!TryRepairTags(regex, line.Value.Text, line.Value.Translate, out repairedTranslate) && 
+				if (!TryRepairTags(regex, line.Text, line.Translate, out repairedTranslate) && 
 					!userTags.Any(el => repairedTranslate.Contains(el))) 
 				{
 					if (!ContainsAnyRussianChar(repairedTranslate))
 					{
-						result.Add(new TranslatedItem(line.Value.AutoId, line.Value.Alias, line.Value.Text, line.Value.Text));
+						result.Add(new TranslatedItem(line.AutoId, line.Alias, line.Text, line.Text));
 					}
 					else
 					{
-						tempInvalidTags.Add(line.Value);
-						result.Add(line.Value);
+						tempInvalidTags.Add(line);
+						result.Add(line);
 					}
 				}
 				else
 				{
-					result.Add(new TranslatedItem(line.Value.AutoId, line.Value.Alias, line.Value.Text, repairedTranslate));
+					result.Add(new TranslatedItem(line.AutoId, line.Alias, line.Text, repairedTranslate));
 				}
 			}
 
@@ -287,15 +291,15 @@ namespace XmlMigrater
 			return result;
 		}
 
-		public static IEnumerable<TranslatedItem> ReplaceKoreanTranslate(IDictionary<int, TranslatedItem> translated)
+		public static IEnumerable<TranslatedItem> ReplaceKoreanTranslate(IEnumerable<TranslatedItem> translated)
 		{
 			List<TranslatedItem> result = new List<TranslatedItem>();
-			foreach (KeyValuePair<int, TranslatedItem> item in translated)
+			foreach (TranslatedItem item in translated)
 			{
-				if (ContainsAnyKoreanChar(item.Value.Translate)) //Слоги Хангыля AC00—D7AF
-					result.Add(new TranslatedItem(item.Value.AutoId, item.Value.Alias, item.Value.Text, item.Value.Text));
+				if (ContainsAnyKoreanChar(item.Translate))
+					result.Add(new TranslatedItem(item.AutoId, item.Alias, item.Text, item.Text));
 				else
-					result.Add(item.Value);
+					result.Add(item);
 			}
 			return result;
 		}
